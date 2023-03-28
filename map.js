@@ -31,6 +31,70 @@ d3.json(url).then(function(data) {
 
 console.log(metroCounties)
 
+countySeats = [
+  {
+  'county': 'Cherokee County',
+  'seat': 'Canton',
+  'coordinates': [34.23720410316699, -84.49300320996771]
+  },
+  {
+    'county': 'Clayton County',
+    'seat': 'Jonesboro',
+    'coordinates': [33.521776076746534, -84.35493544105174]
+  },
+  {
+    'county': 'Cobb County',
+    'seat': 'Marietta',
+    'coordinates': [33.95321208613802, -84.54752441460533]
+  },
+  {
+    'county': 'DeKalb County',
+    'seat': 'Decatur',
+    'coordinates': [33.774934247861644, -84.2975361778138]
+  },
+  {
+    'county': 'Douglas County',
+    'seat': 'Douglasville',
+    'coordinates': [33.7502875913945, -84.74887550635073]
+  },
+  {
+    'county': 'Fayette County',
+    'seat': 'Fayetteville',
+    'coordinates': [33.448373019268196, -84.45614733222322]
+  },
+  {
+    'county': 'Forsyth County',
+    'seat': 'Cumming',
+    'coordinates': [34.20720224578089, -84.13887486261402]
+  },
+  {
+    'county': 'Fulton County',
+    'seat': 'Atlanta',
+    'coordinates': [33.74959144315758, -84.39130195165804]
+  },
+  {
+    'county': 'Gwinnett County',
+    'seat': 'Lawrenceville',
+    'coordinates': [33.955959958257665, -83.98495908732102]
+  },
+  {
+    'county': 'Henry County',
+    'seat': 'McDonough',
+    'coordinates': [33.447743343564774, -84.15469033231801]
+  },
+  {
+    'county': 'Rockdale County',
+    'seat': 'Conyers',
+    'coordinates': [33.66770628328603, -84.01510599319802]
+  },
+]
+
+for (i = 0; i < countySeats.length; i++) {
+  L.marker(countySeats[i].coordinates, {title: `${countySeats[i].seat}`}).bindPopup(`The seat of ${countySeats[i].county} is ${countySeats[i].seat}.`).addTo(myMap)
+}
+
+console.log(countySeats)
+
 // create function to color counties
 function countyColors(county) {
     if (county == 'Cherokee County') return '#9e0142'
@@ -47,17 +111,87 @@ function countyColors(county) {
     else return 'black'
 };
 
-// Getting our GeoJSON data
+// // Getting our GeoJSON data
+// d3.json(url).then(function(data) {
+//     // Creating a GeoJSON layer with the retrieved data
+//     L.geoJson(data, {
+//       style: function(feature) {
+//         return {
+//             color: countyColors(feature.properties.NAMELSAD10),
+//             fillColor: countyColors(feature.properties.NAMELSAD10),
+//             fillOpacity: 0.5,
+//             weight: 1.5
+//         };
+//       }
+//     }).addTo(myMap);
+//   });
+
+// read in this data
 d3.json(url).then(function(data) {
-    // Creating a GeoJSON layer with the retrieved data
-    L.geoJson(data, {
-      style: function(feature) {
-        return {
-            color: countyColors(feature.properties.NAMELSAD10),
-            fillColor: countyColors(feature.properties.NAMELSAD10),
-            fillOpacity: 0.5,
-            weight: 1.5
-        };
+
+  //creating the map
+  L.geoJson(data, {
+
+    // pass in style object
+    style: function (feature) {
+      return {
+        color: countyColors(feature.properties.NAMELSAD10),
+        fillColor: countyColors(feature.properties.NAMELSAD10),
+        fillOpacity: 0.5,
+        weight: 1.5,
+        title: feature.properties.NAMELSAD10
       }
-    }).addTo(myMap);
-  });
+    },
+
+    // implementing onEachFeature
+    onEachFeature: function (feature, layer) {
+
+      // on each layer  
+      layer.on({
+
+        // implement a mouseover
+        mouseover: function (event) {
+
+          // creating a reference to the target, i.e. where we mouse over
+          layer = event.target
+
+          // update styling on the layer
+          layer.setStyle({
+
+            // change opacity
+            fillOpacity: 0.8
+          })
+
+        },
+
+        // implement the mouseout
+        mouseout: function (event) {
+
+          // creating a reference to the target
+          layer = event.target
+
+          // update styling back
+          layer.setStyle({
+
+            //change opacity
+            fillOpacity: 0.5
+          })
+
+        },
+
+        // on a click, show the neighborhood and borough
+        click: function (event) {
+
+          // zoom into neighborhood
+          myMap.fitBounds(event.target.getBounds())
+        }
+
+      })
+
+      // creating the popup
+      layer.bindPopup(`${feature.properties.NAMELSAD10}<hr>${feature.properties.NAMELSAD10}`)
+
+    }
+
+  }).addTo(myMap)
+})
