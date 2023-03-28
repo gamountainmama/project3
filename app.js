@@ -4,12 +4,12 @@ GT Project 3
 Interactive Map of Atlanta
 */
 
-const url=""
+const url="./counties.csv"
 
 //initialize
 function init(){
     var variablesList={};
-    d3.json(url).then(function(data) {
+    d3.csv(url).then(function(data) {
         var allCounties = data.names;
         d3.select("#selCounties")
             .selectAll('myOptions')
@@ -40,6 +40,8 @@ function init(){
             }
         }
         Plotly.newPlot("bubble",chartdata,layout);
+    },function(error,rows){
+        console.log(rows);
     });
 };
 
@@ -86,7 +88,7 @@ function bubbleChart(xValue,yValue,labels){
 
 function buildPlots(county) {
     var variablesList = {};
-    d3.json(url).then(function (data){
+    d3.csv(url).then(function (data){
         variablesList = setVariables(data, county);
 
         var chartdata = barChart(xValue,yValue);
