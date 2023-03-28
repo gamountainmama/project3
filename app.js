@@ -4,45 +4,46 @@ GT Project 3
 Interactive Map of Atlanta
 */
 
-const url="./counties.csv"
+//const url="https://raw.githubusercontent.com/gamountainmama/project3/frances/counties.csv"
 
 //initialize
 function init(){
     var variablesList={};
-    d3.csv(url).then(function(data) {
-        var allCounties = data.names;
-        d3.select("#selCounties")
-            .selectAll('myOptions')
-                .data(allGroups)
-            .enter()
-                .append('option')
+    var countyList=[];
+    console.log(`counties: ${JSON.stringify(counties)}`);
+    for (i=0; i < counties.length; i++){
+        countyList.push(counties[i].name);
+    }
+    console.log(`all counties: ${countyList}`);
+    d3.select("#selCounty")
+        .selectAll('myOptions')
+            .data(countyList)
+        .enter()
+            .append('option')
             .text(function (d) {return d; })
             .attr("value", function (d) {return d; });
-        var initCounty = allGroups[0];
-
-        //initial bar set up
-        variablesList = setVariables(data, initCounty);
-        var chartdata = barChart();
-        Plotly.newPlot("bar",chartdata);
-
-        var chartdata = bubbleChart();
-        var layout = {
-            title: "Bubble Chart",
-            xaxis: {
-                title: {
-                    text: "Population"
-                }
-            },
-            yaxis: {
-                title: {
-                    text: "Y Values"
-                }
+    var initCounty = countyList[0];
+    
+    //initial bar set up
+    variablesList = setVariables(initCounty);
+    var chartdata = barChart();
+    Plotly.newPlot("bar",chartdata);
+    
+    var chartdata = bubbleChart();
+    var layout = {
+        title: "Bubble Chart",
+        xaxis: {
+            title: {
+                text: "Population"
+            }
+        },
+        yaxis: {
+            title: {
+                text: "Y Values"
             }
         }
-        Plotly.newPlot("bubble",chartdata,layout);
-    },function(error,rows){
-        console.log(rows);
-    });
+    }
+    Plotly.newPlot("bubble",chartdata,layout);
 };
 
 //update plots when dropdown selection changes
@@ -54,9 +55,9 @@ function optionChanged() {
     buildPlots(county);
 };
 
-function setVariables(data, county) {
+function setVariables(county) {
     var varList = {};
-    // CODE HERE
+        let countySliced = county;
     return varList;
 };
 
