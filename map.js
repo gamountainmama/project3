@@ -18,14 +18,18 @@ d3.json(url).then(function(data) {
     L.geoJson(data).addTo(myMap);
   });
 
+metroCounties = []
+
 d3.json(url).then(function(data) {
     features = data.features;
     for (i = 0; i < features.length; i++) {
         properties = features[i].properties;
         county = properties.NAMELSAD10
-        console.log(county)
+        metroCounties.push(county)
     }
 });
+
+console.log(metroCounties)
 
 // create function to color counties
 function countyColors(county) {
@@ -40,8 +44,7 @@ function countyColors(county) {
     else if (county == 'Gwinnett County') return '#66c2a5'
     else if (county == 'Henry County') return '#3288bd'
     else if (county == 'Rockdale County') return '#5e4fa2'
-    else return 'gray'
-
+    else return 'black'
 };
 
 // Getting our GeoJSON data
@@ -50,10 +53,10 @@ d3.json(url).then(function(data) {
     L.geoJson(data, {
       style: function(feature) {
         return {
-          color: countyColors(feature.properties.NAMELSAD10),
-          fillColor: countyColors(feature.properties.NAMELSAD10),
-          fillOpacity: 0.5,
-          weight: 2
+            color: countyColors(feature.properties.NAMELSAD10),
+            fillColor: countyColors(feature.properties.NAMELSAD10),
+            fillOpacity: 0.5,
+            weight: 1.5
         };
       }
     }).addTo(myMap);
