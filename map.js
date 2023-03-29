@@ -111,91 +111,20 @@ function countyColors(county) {
     else return 'black'
 };
 
-// // Getting our GeoJSON data
-// d3.json(url).then(function(data) {
-//     // Creating a GeoJSON layer with the retrieved data
-//     L.geoJson(data, {
-//       style: function(feature) {
-//         return {
-//             color: countyColors(feature.properties.NAMELSAD10),
-//             fillColor: countyColors(feature.properties.NAMELSAD10),
-//             fillOpacity: 0.5,
-//             weight: 1.5
-//         };
-//       }
-//     }).addTo(myMap);
-//   });
-
-// read in this data
+// Getting our GeoJSON data
 d3.json(url).then(function(data) {
-
-  //creating the map
-  L.geoJson(data, {
-
-    // pass in style object
-    style: function (feature) {
-      return {
-        color: countyColors(feature.properties.NAMELSAD10),
-        fillColor: countyColors(feature.properties.NAMELSAD10),
-        fillOpacity: 0.5,
-        weight: 1.5,
-        title: feature.properties.NAMELSAD10
+    // Creating a GeoJSON layer with the retrieved data
+    L.geoJson(data, {
+      style: function(feature) {
+        return {
+            color: countyColors(feature.properties.NAMELSAD10),
+            fillColor: countyColors(feature.properties.NAMELSAD10),
+            fillOpacity: 0.5,
+            weight: 1.5
+        };
       }
-    },
-
-    // implementing onEachFeature
-    onEachFeature: function (feature, layer) {
-
-      // on each layer  
-      layer.on({
-
-        // implement a mouseover
-        mouseover: function (event) {
-
-          // creating a reference to the target, i.e. where we mouse over
-          layer = event.target
-
-          // update styling on the layer
-          layer.setStyle({
-
-            // change opacity
-            fillOpacity: 0.8
-          })
-
-        },
-
-        // implement the mouseout
-        mouseout: function (event) {
-
-          // creating a reference to the target
-          layer = event.target
-
-          // update styling back
-          layer.setStyle({
-
-            //change opacity
-            fillOpacity: 0.5
-          })
-
-        },
-
-        // on a click, show the neighborhood and borough
-        click: function (event) {
-
-          // zoom into neighborhood
-          myMap.fitBounds(event.target.getBounds())
-        }
-
-      })
-
-      // creating the popup
-      layer.bindPopup(`<h2>${feature.properties.NAMELSAD10}</h2>`)
-
-    }
-
-  }).addTo(myMap)
-})
-
+    }).addTo(myMap);
+  });
 
 var link = 'https://services1.arcgis.com/Ug5xGQbHsD8zuZzM/arcgis/rest/services/Grocery_Stores_in_13County_Area/FeatureServer/0/query?outFields=*&where=1%3D1&f=geojson'
 
