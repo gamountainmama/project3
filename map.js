@@ -196,10 +196,12 @@ d3.json(url).then(function(data) {
   }).addTo(myMap)
 })
 
-d3.json('./Grocery_Stores_in_13-County_Area.geojson').then(function(data) {
+var link = 'https://services1.arcgis.com/Ug5xGQbHsD8zuZzM/arcgis/rest/services/Grocery_Stores_in_13County_Area/FeatureServer/0/query?outFields=*&where=1%3D1&f=geojson'
+
+d3.json(link).then(function(data) {
   for (i = 0; i < data.length; i++) {
     coordinates = data.features[i].properties.geometry.coordinates,
     company = data.features[i].properties.company
-    console.log(coordinates)
+    console.log(company)
   }
 })
