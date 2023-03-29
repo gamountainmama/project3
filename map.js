@@ -189,19 +189,20 @@ d3.json(url).then(function(data) {
       })
 
       // creating the popup
-      layer.bindPopup(`${feature.properties.NAMELSAD10}<hr>${feature.properties.NAMELSAD10}`)
+      layer.bindPopup(`<h2>${feature.properties.NAMELSAD10}</h2>`)
 
     }
 
   }).addTo(myMap)
 })
 
+
 var link = 'https://services1.arcgis.com/Ug5xGQbHsD8zuZzM/arcgis/rest/services/Grocery_Stores_in_13County_Area/FeatureServer/0/query?outFields=*&where=1%3D1&f=geojson'
 
 d3.json(link).then(function(data) {
-  for (i = 0; i < data.length; i++) {
-    coordinates = data.features[i].properties.geometry.coordinates,
-    company = data.features[i].properties.company
-    console.log(company)
-  }
-})
+  for (i = 0; i < data.features.length; i++) {
+    latitude = data.features[i].properties.Latitude,
+    longitude = data.features[i].properties.Longitude,
+    company = data.features[i].properties.Company,
+    L.circle([latitude, longitude]).bindPopup(`${company}`).addTo(myMap)
+}})
