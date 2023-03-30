@@ -44,6 +44,8 @@ function init(){
         }
     }
     Plotly.newPlot("bubble",chartdata,layout);
+
+    countyStats(initCounty);
 };
 
 //update plots when dropdown selection changes
@@ -110,6 +112,26 @@ function buildPlots(county) {
         }
         Plotly.restyle("bubble",updateData);
     });
+};
+
+/* this function changes what is displayed within the statistcis card on the site
+We're not making any updates with Plotly; it's simply updating a list of attributes about
+the county in particular that we need to update. */
+function countyStats(county) {
+    var statsCard = d3.select("#county-statistics")
+    d3.json(url).then(function(data){
+        var statsData = data.metadata; // all metadata available in samples.json
+        var statsFiltered = statsData.filter(row => row.id==sample)
+
+        //need to clear what's in there currently to make room for new stuff
+        statsCard.selectAll("p").remove();
+        // for each row (should only be 1) and for each value in the list, print it to the paragraph element
+        statsFiltered.forEach((row) => {
+            for (const [key,value] of Object.entries(row)) {
+                statsCard.append("p").text(`${key}: ${value}`);
+            };
+        })
+    })
 };
 
 //need to run init function to start
