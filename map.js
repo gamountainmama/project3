@@ -1,7 +1,7 @@
 // create the map
 const myMap = L.map('map', {
     center: [33.77192878612643, -84.39437603097467],
-    zoom: 9,
+    zoom: 9
 });
 
 // Adding the initial tile layer
@@ -12,7 +12,14 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 // link for grocery stores
 var link = 'https://services1.arcgis.com/Ug5xGQbHsD8zuZzM/arcgis/rest/services/Grocery_Stores_in_13County_Area/FeatureServer/0/query?outFields=*&where=1%3D1&f=geojson'
 
-var groceryLayer = []
+var groceryLayer = [];
+var groceryCircles = [];
+var martaLayer = [];
+var martaCircles = [];
+var seatLayer = [];
+var seatMarkers = [];
+var countyOutlines = [];
+var countyLines = [];
 
 // create a circle marker for each grocery store with name and address
 d3.json(link).then(function(data) {
@@ -23,31 +30,24 @@ d3.json(link).then(function(data) {
     address = data.features[i].properties.Address,
     city = data.features[i].properties.City,
     zip = data.features[i].properties.Zip_Code,
-    L.circle([latitude, longitude], {radius: 100, color: 'blue'}).bindPopup(`<center><h2>${company}</h2></center><hr><h3>${address}<br>${city} GA ${zip}</h3>`).addTo(myMap)
+    L.circle([latitude, longitude], {radius: 100, color: '#23a7d8', mouseover: `${company}`}).bindPopup(`<center><h2>${company}</h2></center><hr><h3>${address}<br>${city} GA ${zip}</h3>`).addTo(groceryLayer)
 }})
 
-// link for county outlines
-url = 'https://arcgis.atlantaregional.com/arcgis/rest/services/OpenData/FeatureServer/67/query?outFields=*&where=1%3D1&f=geojson'
+// link for MARTA stations
+martaLink = 'https://arcgis.atlantaregional.com/arcgis/rest/services/OpenData/FeatureServer/17/query?outFields=*&where=1%3D1&f=geojson'
 
-// // Getting our GeoJSON data
-// d3.json(url).then(function(data) {
-//     // Creating a GeoJSON layer with the retrieved data
-//     L.geoJson(data).addTo(myMap);
-//   });
+// getting MARTA station data
+d3.json(martaLink).then(function(data){
+  for (i = 0; i < data.features.length; i++) {
+    latitude = data.features[i].geometry.coordinates[1],
+    longitude = data.features[i].geometry.coordinates[0],
+    code = data.features[i].properties.Stn_Code,
+    name = data.features[i].properties.STATION
+    L.circle([latitude, longitude], {radius: 200, color:'#b73b77'}).bindPopup(`<center><h2>${name}</h2><h3>MARTA Station ${code}</h3></center>`).addTo(martaLayer)
+  }
+})
 
-// metroCounties = []
-
-// d3.json(url).then(function(data) {
-//     features = data.features;
-//     for (i = 0; i < features.length; i++) {
-//         properties = features[i].properties;
-//         county = properties.NAMELSAD10
-//         metroCounties.push(county)
-//     }
-// });
-
-// console.log(metroCounties)
-
+// create JSON for county seats
 countySeats = [
   {
   'county': 'Cherokee County',
@@ -106,104 +106,184 @@ countySeats = [
   },
 ]
 
+// create markers for county seats
 for (i = 0; i < countySeats.length; i++) {
-  L.marker(countySeats[i].coordinates, {title: `${countySeats[i].seat}`}).bindPopup(`<center><h2>${countySeats[i].seat}</h2><h4>is the seat of</h4><h2>${countySeats[i].county}</h2></center>`).addTo(myMap)
+  seatMarkers.push(L.marker(countySeats[i].coordinates, {title: `${countySeats[i].seat}`}).bindPopup(`<center><h2>${countySeats[i].seat}</h2><h4>is the seat of</h4><h2>${countySeats[i].county}</h2></center>`))
 }
 
-console.log(countySeats)
+// link for county outlines
+url = 'https://arcgis.atlantaregional.com/arcgis/rest/services/OpenData/FeatureServer/67/query?outFields=*&where=1%3D1&f=geojson'
+
+// Getting our GeoJSON data
+d3.json(url).then(function(data) {
+    // Creating a GeoJSON layer with the retrieved data
+    for (i = 0; i < data.features.length; i++) {
+      if (data.features[i].properties.NAMELSAD10 == 'Cherokee County') {
+        L.geoJson(data.features[i], {
+          style: function(feature) {
+            return {
+                color: countyColors(feature.properties.NAMELSAD10),
+                fillColor: countyColors(feature.properties.NAMELSAD10),
+                fillOpacity: 0.3,
+                weight: 3
+            };
+          }
+        }).addTo(countyOutlines)};
+      if (data.features[i].properties.NAMELSAD10 == 'Clayton County') {
+        L.geoJson(data.features[i], {
+          style: function(feature) {
+            return {
+                color: countyColors(feature.properties.NAMELSAD10),
+                fillColor: countyColors(feature.properties.NAMELSAD10),
+                fillOpacity: 0.3,
+                weight: 3
+            };
+          }
+        }).addTo(countyOutlines)};
+      if (data.features[i].properties.NAMELSAD10 == 'Cobb County') {
+        L.geoJson(data.features[i], {
+          style: function(feature) {
+            return {
+                color: countyColors(feature.properties.NAMELSAD10),
+                fillColor: countyColors(feature.properties.NAMELSAD10),
+                fillOpacity: 0.3,
+                weight: 3
+            };
+          }
+        }).addTo(countyOutlines)};
+      if (data.features[i].properties.NAMELSAD10 == 'DeKalb County') {
+        L.geoJson(data.features[i], {
+          style: function(feature) {
+            return {
+                color: countyColors(feature.properties.NAMELSAD10),
+                fillColor: countyColors(feature.properties.NAMELSAD10),
+                fillOpacity: 0.3,
+                weight: 3
+            };
+          }
+        }).addTo(countyOutlines)};
+      if (data.features[i].properties.NAMELSAD10 == 'Douglas County') {
+        L.geoJson(data.features[i], {
+          style: function(feature) {
+            return {
+                color: countyColors(feature.properties.NAMELSAD10),
+                fillColor: countyColors(feature.properties.NAMELSAD10),
+                fillOpacity: 0.3,
+                weight: 3
+            };
+          }
+        }).addTo(countyOutlines)};
+      if (data.features[i].properties.NAMELSAD10 == 'Fayette County') {
+        L.geoJson(data.features[i], {
+          style: function(feature) {
+            return {
+                color: countyColors(feature.properties.NAMELSAD10),
+                fillColor: countyColors(feature.properties.NAMELSAD10),
+                fillOpacity: 0.3,
+                weight: 3
+            };
+          }
+        }).addTo(countyOutlines)};
+      if (data.features[i].properties.NAMELSAD10 == 'Forsyth County') {
+        L.geoJson(data.features[i], {
+          style: function(feature) {
+            return {
+                color: countyColors(feature.properties.NAMELSAD10),
+                fillColor: countyColors(feature.properties.NAMELSAD10),
+                fillOpacity: 0.3,
+                weight: 3
+            };
+          }
+        }).addTo(countyOutlines)};
+      if (data.features[i].properties.NAMELSAD10 == 'Fulton County') {
+        L.geoJson(data.features[i], {
+          style: function(feature) {
+            return {
+                color: countyColors(feature.properties.NAMELSAD10),
+                fillColor: countyColors(feature.properties.NAMELSAD10),
+                fillOpacity: 0.3,
+                weight: 3
+            };
+          }
+        }).addTo(countyOutlines)};  
+      if (data.features[i].properties.NAMELSAD10 == 'Gwinnett County') {
+        L.geoJson(data.features[i], {
+          style: function(feature) {
+            return {
+                color: countyColors(feature.properties.NAMELSAD10),
+                fillColor: countyColors(feature.properties.NAMELSAD10),
+                fillOpacity: 0.3,
+                weight: 3
+            };
+          }
+        }).addTo(countyOutlines)};
+      if (data.features[i].properties.NAMELSAD10 == 'Henry County') {
+        L.geoJson(data.features[i], {
+          style: function(feature) {
+            return {
+                color: countyColors(feature.properties.NAMELSAD10),
+                fillColor: countyColors(feature.properties.NAMELSAD10),
+                fillOpacity: 0.3,
+                weight: 3
+            };
+          }
+        }).addTo(countyOutlines)};
+      if (data.features[i].properties.NAMELSAD10 == 'Rockdale County') {
+        L.geoJson(data.features[i], {
+          style: function(feature) {
+            return {
+                color: countyColors(feature.properties.NAMELSAD10),
+                fillColor: countyColors(feature.properties.NAMELSAD10),
+                fillOpacity: 0.3,
+                weight: 3
+            };
+          }
+        }).addTo(countyOutlines)};
+  }});
 
 // create function to color counties
 function countyColors(county) {
-    if (county == 'Cherokee County') return '#9e0142'
-    else if (county == 'Clayton County') return '#d53e4f'
-    else if (county == 'Cobb County') return '#f46d43'
-    else if (county == 'DeKalb County') return '#fdae61'
-    else if (county == 'Douglas County') return '#fee08b'
-    else if (county == 'Fayette County') return '#abdda4'
-    else if (county == 'Forsyth County') return '#e6f598'
-    else if (county == 'Fulton County') return 'yellow'
+    if (county == 'Cherokee County') return '#626542'
+    else if (county == 'Clayton County') return '#ab9170'
+    else if (county == 'Cobb County') return '#b48a8f'
+    else if (county == 'DeKalb County') return '#849894'
+    else if (county == 'Douglas County') return '#344b3c'
+    else if (county == 'Fayette County') return '#bc7234'
+    else if (county == 'Forsyth County') return '#48544c'
+    else if (county == 'Fulton County') return '#7865be'
     else if (county == 'Gwinnett County') return '#66c2a5'
-    else if (county == 'Henry County') return '#3288bd'
-    else if (county == 'Rockdale County') return '#5e4fa2'
+    else if (county == 'Henry County') return '#869bbb'
+    else if (county == 'Rockdale County') return '#a28c94'
     else return 'black'
 };
 
-// create function to include counties
-function countyMetro(county) {
-  if (county == 'Cherokee County') return 'metro'
-  else if (county == 'Clayton County') return 'metro'
-  else if (county == 'Cobb County') return 'metro'
-  else if (county == 'DeKalb County') return 'metro'
-  else if (county == 'Douglas County') return 'metro'
-  else if (county == 'Fayette County') return 'metro'
-  else if (county == 'Forsyth County') return 'metro'
-  else if (county == 'Fulton County') return 'metro'
-  else if (county == 'Gwinnett County') return 'metro'
-  else if (county == 'Henry County') return 'metro'
-  else if (county == 'Rockdale County') return 'metro'
-  else return 'n/a'
-};
-
-d3.json(url).then(function(data) {
-  for (i = 0; i < data.features; i++) {
-  console.log(data.features[i].properties.NAMELSAD10)
-}})
-
-
-
-// // Getting our GeoJSON data
-// d3.json(url).then(function(data) {
-//     // Creating a GeoJSON layer with the retrieved data
-//     L.geoJson(data, {
-//       style: function(feature) {
-//         return {
-//             color: countyColors(feature.properties.NAMELSAD10),
-//             fillColor: countyColors(feature.properties.NAMELSAD10),
-//             fillOpacity: 0.2,
-//             weight: 2.5
-//         };
-//       }
-//     }).addTo(myMap);
-//   });
-
-// link to MARTA stations
-martaLink = 'https://arcgis.atlantaregional.com/arcgis/rest/services/OpenData/FeatureServer/17/query?outFields=*&where=1%3D1&f=geojson'
-
-// getting MARTA station data
-d3.json(martaLink).then(function(data){
-  for (i = 0; i < data.features.length; i++) {
-    latitude = data.features[i].geometry.coordinates[1],
-    longitude = data.features[i].geometry.coordinates[0],
-    code = data.features[i].properties.Stn_Code,
-    name = data.features[i].properties.STATION
-    L.circle([latitude, longitude], {radius: 200, color:'red'}).bindPopup(`<center><h2>${name}</h2><h3>MARTA Station ${code}</h3></center>`).addTo(myMap)
-  }
+// Define variables for our tile layers.
+var street = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 })
 
-// d3.json(link).then(function(data) {
-//   for (i = 0; i < data.features.length; i++) {
-//     latitude = data.features[i].properties.Latitude,
-//     longitude = data.features[i].properties.Longitude,
-//     company = data.features[i].properties.Company,
-//     address = data.features[i].properties.Address,
-//     city = data.features[i].properties.City,
-//     zip = data.features[i].properties.Zip_Code,
-//     L.circle([latitude, longitude]).bindPopup(`<h2>${company}</h2><hr><h3>${address}<br>${city} GA ${zip}</h3>`).addTo(myMap)
-// }})
+var topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+	attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+});
 
+// Only one base layer can be shown at a time.
+var baseMaps = {
+  'Street Map': street,
+  Topography: topo
+};
 
+// Create layer groups.
+var groceryLayer = L.layerGroup(groceryCircles);
+var martaLayer = L.layerGroup(martaCircles);
+var seatLayer = L.layerGroup(seatMarkers);
+var countyOutlines = L.layerGroup(countyLines)
 
-// var borderLayer = []
-// var seatLayer = []
-// var martaLayer = []
-// var groceryLayer = []
+var overlays = {
+  'Grocery Stores': groceryLayer,
+  'MARTA Stations': martaLayer,
+  'County Seats': seatLayer,
+  'County Outlines': countyOutlines
+};
 
-// // Create an overlay object.
-// var overlays = {
-//   'County Borders': borderLayer,
-//   'County Seats': seatLayer,
-//   'MARTA Stations': martaLayer,
-//   'Grocery Stores': groceryLayer
-// };
-
-// L.control.layers(overlays).addTo(myMap)
+// Add the layer control to the map.
+L.control.layers(baseMaps, overlays, {collapsed: false}).addTo(myMap);
