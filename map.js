@@ -30,7 +30,7 @@ d3.json(link).then(function(data) {
     address = data.features[i].properties.Address,
     city = data.features[i].properties.City,
     zip = data.features[i].properties.Zip_Code,
-    L.circle([latitude, longitude], {radius: 100, color: '#23a7d8', mouseover: `${company}`}).bindPopup(`<center><h2>${company}</h2></center><hr><h3>${address}<br>${city} GA ${zip}</h3>`).addTo(groceryLayer)
+    L.circle([latitude, longitude], {radius: 100, color: '#23a7d8', mouseover: `${company}`}).bindPopup(`<center><h6>${company}</h6></center><hr><h7>${address}<br>${city} GA ${zip}</7>`).addTo(groceryLayer)
 }})
 
 // link for MARTA stations
@@ -43,7 +43,7 @@ d3.json(martaLink).then(function(data){
     longitude = data.features[i].geometry.coordinates[0],
     code = data.features[i].properties.Stn_Code,
     name = data.features[i].properties.STATION
-    L.circle([latitude, longitude], {radius: 200, color:'#b73b77'}).bindPopup(`<center><h2>${name}</h2><h3>MARTA Station ${code}</h3></center>`).addTo(martaLayer)
+    L.circle([latitude, longitude], {radius: 200, color:'#b73b77'}).bindPopup(`<center><h6>${name}</h6><h7>MARTA Station ${code}</h7></center>`).addTo(martaLayer)
   }
 })
 
@@ -108,7 +108,7 @@ countySeats = [
 
 // create markers for county seats
 for (i = 0; i < countySeats.length; i++) {
-  seatMarkers.push(L.marker(countySeats[i].coordinates, {title: `${countySeats[i].seat}`}).bindPopup(`<center><h2>${countySeats[i].seat}</h2><h4>is the seat of</h4><h2>${countySeats[i].county}</h2></center>`))
+  seatMarkers.push(L.marker(countySeats[i].coordinates, {markerColor: '#869bbb', title: `${countySeats[i].seat}`}).bindPopup(`<center><h6>${countySeats[i].seat}</h6><h7>is the seat of</h7><h6>${countySeats[i].county}</h6></center>`))
 }
 
 // link for county outlines
@@ -284,6 +284,11 @@ var overlays = {
   'County Seats': seatLayer,
   'County Outlines': countyOutlines
 };
+
+countyOutlines.addTo(myMap);
+groceryLayer.addTo(myMap);
+martaLayer.addTo(myMap);
+seatLayer.addTo(myMap);
 
 // Add the layer control to the map.
 L.control.layers(baseMaps, overlays, {collapsed: false}).addTo(myMap);
