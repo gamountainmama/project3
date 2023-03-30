@@ -119,7 +119,7 @@ d3.json(url).then(function(data) {
     // Creating a GeoJSON layer with the retrieved data
     for (i = 0; i < data.features.length; i++) {
       if (data.features[i].properties.NAMELSAD10 == 'Cherokee County') {
-        L.geoJson(data.features[i], {
+        var Cherokee = L.geoJson(data.features[i], {
           style: function(feature) {
             return {
                 color: countyColors(feature.properties.NAMELSAD10),
@@ -130,7 +130,7 @@ d3.json(url).then(function(data) {
           }
         }).addTo(countyOutlines)};
       if (data.features[i].properties.NAMELSAD10 == 'Clayton County') {
-        L.geoJson(data.features[i], {
+        var Clayton = L.geoJson(data.features[i], {
           style: function(feature) {
             return {
                 color: countyColors(feature.properties.NAMELSAD10),
@@ -141,7 +141,7 @@ d3.json(url).then(function(data) {
           }
         }).addTo(countyOutlines)};
       if (data.features[i].properties.NAMELSAD10 == 'Cobb County') {
-        L.geoJson(data.features[i], {
+        var Cobb = L.geoJson(data.features[i], {
           style: function(feature) {
             return {
                 color: countyColors(feature.properties.NAMELSAD10),
@@ -152,7 +152,7 @@ d3.json(url).then(function(data) {
           }
         }).addTo(countyOutlines)};
       if (data.features[i].properties.NAMELSAD10 == 'DeKalb County') {
-        L.geoJson(data.features[i], {
+        var DeKalb = L.geoJson(data.features[i], {
           style: function(feature) {
             return {
                 color: countyColors(feature.properties.NAMELSAD10),
@@ -163,7 +163,7 @@ d3.json(url).then(function(data) {
           }
         }).addTo(countyOutlines)};
       if (data.features[i].properties.NAMELSAD10 == 'Douglas County') {
-        L.geoJson(data.features[i], {
+        var Douglas = L.geoJson(data.features[i], {
           style: function(feature) {
             return {
                 color: countyColors(feature.properties.NAMELSAD10),
@@ -174,7 +174,7 @@ d3.json(url).then(function(data) {
           }
         }).addTo(countyOutlines)};
       if (data.features[i].properties.NAMELSAD10 == 'Fayette County') {
-        L.geoJson(data.features[i], {
+        var Fayette = L.geoJson(data.features[i], {
           style: function(feature) {
             return {
                 color: countyColors(feature.properties.NAMELSAD10),
@@ -185,7 +185,7 @@ d3.json(url).then(function(data) {
           }
         }).addTo(countyOutlines)};
       if (data.features[i].properties.NAMELSAD10 == 'Forsyth County') {
-        L.geoJson(data.features[i], {
+        var Forsyth = L.geoJson(data.features[i], {
           style: function(feature) {
             return {
                 color: countyColors(feature.properties.NAMELSAD10),
@@ -196,7 +196,7 @@ d3.json(url).then(function(data) {
           }
         }).addTo(countyOutlines)};
       if (data.features[i].properties.NAMELSAD10 == 'Fulton County') {
-        L.geoJson(data.features[i], {
+        var Fulton = L.geoJson(data.features[i], {
           style: function(feature) {
             return {
                 color: countyColors(feature.properties.NAMELSAD10),
@@ -207,7 +207,7 @@ d3.json(url).then(function(data) {
           }
         }).addTo(countyOutlines)};  
       if (data.features[i].properties.NAMELSAD10 == 'Gwinnett County') {
-        L.geoJson(data.features[i], {
+        var Gwinnett = L.geoJson(data.features[i], {
           style: function(feature) {
             return {
                 color: countyColors(feature.properties.NAMELSAD10),
@@ -218,7 +218,7 @@ d3.json(url).then(function(data) {
           }
         }).addTo(countyOutlines)};
       if (data.features[i].properties.NAMELSAD10 == 'Henry County') {
-        L.geoJson(data.features[i], {
+        var Henry = L.geoJson(data.features[i], {
           style: function(feature) {
             return {
                 color: countyColors(feature.properties.NAMELSAD10),
@@ -229,7 +229,7 @@ d3.json(url).then(function(data) {
           }
         }).addTo(countyOutlines)};
       if (data.features[i].properties.NAMELSAD10 == 'Rockdale County') {
-        L.geoJson(data.features[i], {
+        var Rockdale =L.geoJson(data.features[i], {
           style: function(feature) {
             return {
                 color: countyColors(feature.properties.NAMELSAD10),
