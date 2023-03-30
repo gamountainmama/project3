@@ -1,13 +1,34 @@
 // create the map
 const myMap = L.map("map", {
     center: [33.77192878612643, -84.39437603097467],
-    zoom: 9
+    zoom: 8.5
 });
 
 // Adding the initial tile layer
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(myMap);
+
+// retrieve the dropdown selection
+var locationSelect = document.getElementById('selCounty');
+
+// add event listener
+locationSelect.addEventListener('change',function() {
+  // get the location's coordinates
+  var location = getCoord(locationSelect.value);
+  if (location) {
+    // center the map on the selected location
+    myMap.setView(location, 8.5)
+  }
+});
+
+function getCoord(id) {
+  for (i = 0; i < countySeats.length; i ++) {
+    if (id == countySeats[i].county) {
+      return countySeats[i].coordinates;
+    }
+  }
+};
 
 // link for grocery stores
 var link = 'https://services1.arcgis.com/Ug5xGQbHsD8zuZzM/arcgis/rest/services/Grocery_Stores_in_13County_Area/FeatureServer/0/query?outFields=*&where=1%3D1&f=geojson'
@@ -50,32 +71,32 @@ d3.json(martaLink).then(function(data){
 // create JSON for county seats
 countySeats = [
   {
-  'county': 'Cherokee County',
+  'county': 'Cherokee',
   'seat': 'Canton',
   'coordinates': [34.23720410316699, -84.49300320996771]
   },
   {
-    'county': 'Clayton County',
+    'county': 'Clayton',
     'seat': 'Jonesboro',
     'coordinates': [33.521776076746534, -84.35493544105174]
   },
   {
-    'county': 'Cobb County',
+    'county': 'Cobb',
     'seat': 'Marietta',
     'coordinates': [33.95321208613802, -84.54752441460533]
   },
   {
-    'county': 'DeKalb County',
+    'county': 'DeKalb',
     'seat': 'Decatur',
     'coordinates': [33.774934247861644, -84.2975361778138]
   },
   {
-    'county': 'Douglas County',
+    'county': 'Douglas',
     'seat': 'Douglasville',
     'coordinates': [33.7502875913945, -84.74887550635073]
   },
   {
-    'county': 'Fayette County',
+    'county': 'Fayette',
     'seat': 'Fayetteville',
     'coordinates': [33.448373019268196, -84.45614733222322]
   },
@@ -85,22 +106,22 @@ countySeats = [
     'coordinates': [34.20720224578089, -84.13887486261402]
   },
   {
-    'county': 'Fulton County',
+    'county': 'Fulton',
     'seat': 'Atlanta',
     'coordinates': [33.74959144315758, -84.39130195165804]
   },
   {
-    'county': 'Gwinnett County',
+    'county': 'Gwinnett',
     'seat': 'Lawrenceville',
     'coordinates': [33.955959958257665, -83.98495908732102]
   },
   {
-    'county': 'Henry County',
+    'county': 'Henry',
     'seat': 'McDonough',
     'coordinates': [33.447743343564774, -84.15469033231801]
   },
   {
-    'county': 'Rockdale County',
+    'county': 'Rockdale',
     'seat': 'Conyers',
     'coordinates': [33.66770628328603, -84.01510599319802]
   },
@@ -108,7 +129,7 @@ countySeats = [
 
 // create markers for county seats
 for (i = 0; i < countySeats.length; i++) {
-  seatMarkers.push(L.marker(countySeats[i].coordinates, {markerColor: '#869bbb', title: `${countySeats[i].seat}`}).bindPopup(`<center><h6>${countySeats[i].seat}</h6><h7>is the seat of</h7><h6>${countySeats[i].county}</h6></center>`))
+  seatMarkers.push(L.marker(countySeats[i].coordinates, {markerColor: '#869bbb', title: `${countySeats[i].seat}`}).bindPopup(`<center><h6>${countySeats[i].seat}</h6><h7>is the seat of</h7><h6>${countySeats[i].county} County</h6></center>`))
 }
 
 // link for county outlines
