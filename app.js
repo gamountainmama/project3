@@ -24,6 +24,24 @@ function init(){
             .attr("value", function (d) {return d; });
     var initCounty = countyList[0];
     
+    //connect to database - rent.csv for now
+    var rentDict=[];
+    d3.csv("Resources/rent.csv", function(rentData) {
+        for (var i=0; i < rentData.length; i++) {
+            var tempDict = {
+                "county":rentData[i].County,
+                "studio":rentData[i].Studio,
+                "1 bedroom":rentData[i]["1 BR"],
+                "2 bedroom":rentData[i]["2 BR"],
+                "3 bedroom":rentData[i]["3 BR"],
+                "4 bedroom":rentData[i]["4 BR"],
+                "population":rentData[i]["Est. Population"]
+            }
+            rentDict.append(tempDict);
+            console.log(rentDict[i]);
+        }
+    });
+
     //initial bar set up
     variablesList = setVariables(initCounty);
     var chartdata = barChart();
