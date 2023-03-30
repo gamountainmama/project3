@@ -9,27 +9,44 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(myMap);
 
+// link for grocery stores
+var link = 'https://services1.arcgis.com/Ug5xGQbHsD8zuZzM/arcgis/rest/services/Grocery_Stores_in_13County_Area/FeatureServer/0/query?outFields=*&where=1%3D1&f=geojson'
+
+var groceryLayer = []
+
+// create a circle marker for each grocery store with name and address
+d3.json(link).then(function(data) {
+  for (i = 0; i < data.features.length; i++) {
+    latitude = data.features[i].properties.Latitude,
+    longitude = data.features[i].properties.Longitude,
+    company = data.features[i].properties.Company,
+    address = data.features[i].properties.Address,
+    city = data.features[i].properties.City,
+    zip = data.features[i].properties.Zip_Code,
+    L.circle([latitude, longitude], {radius: 100, color: 'blue'}).bindPopup(`<h2>${company}</h2><hr><h3>${address}<br>${city} GA ${zip}</h3>`).addTo(myMap)
+}})
+
 // link for county outlines
 url = 'https://arcgis.atlantaregional.com/arcgis/rest/services/OpenData/FeatureServer/67/query?outFields=*&where=1%3D1&f=geojson'
 
-// Getting our GeoJSON data
-d3.json(url).then(function(data) {
-    // Creating a GeoJSON layer with the retrieved data
-    L.geoJson(data).addTo(myMap);
-  });
+// // Getting our GeoJSON data
+// d3.json(url).then(function(data) {
+//     // Creating a GeoJSON layer with the retrieved data
+//     L.geoJson(data).addTo(myMap);
+//   });
 
-metroCounties = []
+// metroCounties = []
 
-d3.json(url).then(function(data) {
-    features = data.features;
-    for (i = 0; i < features.length; i++) {
-        properties = features[i].properties;
-        county = properties.NAMELSAD10
-        metroCounties.push(county)
-    }
-});
+// d3.json(url).then(function(data) {
+//     features = data.features;
+//     for (i = 0; i < features.length; i++) {
+//         properties = features[i].properties;
+//         county = properties.NAMELSAD10
+//         metroCounties.push(county)
+//     }
+// });
 
-console.log(metroCounties)
+// console.log(metroCounties)
 
 countySeats = [
   {
@@ -90,7 +107,7 @@ countySeats = [
 ]
 
 for (i = 0; i < countySeats.length; i++) {
-  L.marker(countySeats[i].coordinates, {title: `${countySeats[i].seat}`}).bindPopup(`The seat of ${countySeats[i].county} is ${countySeats[i].seat}.`).addTo(myMap)
+  L.marker(countySeats[i].coordinates, {title: `${countySeats[i].seat}`}).bindPopup(`<center><h2>${countySeats[i].seat}</h2><h4>is the seat of</h4><h2>${countySeats[i].county}</h2></center>`).addTo(myMap)
 }
 
 console.log(countySeats)
@@ -111,27 +128,82 @@ function countyColors(county) {
     else return 'black'
 };
 
-// Getting our GeoJSON data
+// create function to include counties
+function countyMetro(county) {
+  if (county == 'Cherokee County') return 'metro'
+  else if (county == 'Clayton County') return 'metro'
+  else if (county == 'Cobb County') return 'metro'
+  else if (county == 'DeKalb County') return 'metro'
+  else if (county == 'Douglas County') return 'metro'
+  else if (county == 'Fayette County') return 'metro'
+  else if (county == 'Forsyth County') return 'metro'
+  else if (county == 'Fulton County') return 'metro'
+  else if (county == 'Gwinnett County') return 'metro'
+  else if (county == 'Henry County') return 'metro'
+  else if (county == 'Rockdale County') return 'metro'
+  else return 'n/a'
+};
+
 d3.json(url).then(function(data) {
-    // Creating a GeoJSON layer with the retrieved data
-    L.geoJson(data, {
-      style: function(feature) {
-        return {
-            color: countyColors(feature.properties.NAMELSAD10),
-            fillColor: countyColors(feature.properties.NAMELSAD10),
-            fillOpacity: 0.5,
-            weight: 1.5
-        };
-      }
-    }).addTo(myMap);
-  });
-
-var link = 'https://services1.arcgis.com/Ug5xGQbHsD8zuZzM/arcgis/rest/services/Grocery_Stores_in_13County_Area/FeatureServer/0/query?outFields=*&where=1%3D1&f=geojson'
-
-d3.json(link).then(function(data) {
-  for (i = 0; i < data.features.length; i++) {
-    latitude = data.features[i].properties.Latitude,
-    longitude = data.features[i].properties.Longitude,
-    company = data.features[i].properties.Company,
-    L.circle([latitude, longitude]).bindPopup(`${company}`).addTo(myMap)
+  for (i = 0; i < data.features; i++) {
+  console.log(data.features[i].properties.NAMELSAD10)
 }})
+
+
+
+// // Getting our GeoJSON data
+// d3.json(url).then(function(data) {
+//     // Creating a GeoJSON layer with the retrieved data
+//     L.geoJson(data, {
+//       style: function(feature) {
+//         return {
+//             color: countyColors(feature.properties.NAMELSAD10),
+//             fillColor: countyColors(feature.properties.NAMELSAD10),
+//             fillOpacity: 0.2,
+//             weight: 2.5
+//         };
+//       }
+//     }).addTo(myMap);
+//   });
+
+// link to MARTA stations
+martaLink = 'https://arcgis.atlantaregional.com/arcgis/rest/services/OpenData/FeatureServer/17/query?outFields=*&where=1%3D1&f=geojson'
+
+// getting MARTA station data
+d3.json(martaLink).then(function(data){
+  for (i = 0; i < data.features.length; i++) {
+    latitude = data.features[i].geometry.coordinates[1],
+    longitude = data.features[i].geometry.coordinates[0],
+    code = data.features[i].properties.Stn_Code,
+    name = data.features[i].properties.STATION
+    L.circle([latitude, longitude], {radius: 200, color:'red'}).bindPopup(`<h2>${name} MARTA Station ${code}<h2>`).addTo(myMap)
+  }
+})
+
+// d3.json(link).then(function(data) {
+//   for (i = 0; i < data.features.length; i++) {
+//     latitude = data.features[i].properties.Latitude,
+//     longitude = data.features[i].properties.Longitude,
+//     company = data.features[i].properties.Company,
+//     address = data.features[i].properties.Address,
+//     city = data.features[i].properties.City,
+//     zip = data.features[i].properties.Zip_Code,
+//     L.circle([latitude, longitude]).bindPopup(`<h2>${company}</h2><hr><h3>${address}<br>${city} GA ${zip}</h3>`).addTo(myMap)
+// }})
+
+
+
+// var borderLayer = []
+// var seatLayer = []
+// var martaLayer = []
+// var groceryLayer = []
+
+// // Create an overlay object.
+// var overlays = {
+//   'County Borders': borderLayer,
+//   'County Seats': seatLayer,
+//   'MARTA Stations': martaLayer,
+//   'Grocery Stores': groceryLayer
+// };
+
+// L.control.layers(overlays).addTo(myMap)
