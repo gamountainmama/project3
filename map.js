@@ -23,7 +23,7 @@ d3.json(link).then(function(data) {
     address = data.features[i].properties.Address,
     city = data.features[i].properties.City,
     zip = data.features[i].properties.Zip_Code,
-    L.circle([latitude, longitude], {radius: 100, color: 'blue'}).bindPopup(`<h2>${company}</h2><hr><h3>${address}<br>${city} GA ${zip}</h3>`).addTo(myMap)
+    L.circle([latitude, longitude], {radius: 100, color: 'blue'}).bindPopup(`<center><h2>${company}</h2></center><hr><h3>${address}<br>${city} GA ${zip}</h3>`).addTo(myMap)
 }})
 
 // link for county outlines
@@ -176,7 +176,7 @@ d3.json(martaLink).then(function(data){
     longitude = data.features[i].geometry.coordinates[0],
     code = data.features[i].properties.Stn_Code,
     name = data.features[i].properties.STATION
-    L.circle([latitude, longitude], {radius: 200, color:'red'}).bindPopup(`<h2>${name} MARTA Station ${code}<h2>`).addTo(myMap)
+    L.circle([latitude, longitude], {radius: 200, color:'red'}).bindPopup(`<center><h2>${name}</h2><h3>MARTA Station ${code}</h3></center>`).addTo(myMap)
   }
 })
 
