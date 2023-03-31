@@ -20,27 +20,15 @@ function init(){
             .data(countyList)
         .enter()
             .append('option')
-            .text(function (d) {return d; })
-            .attr("value", function (d) {return d; });
+        .text(function (d) {return d; })
+        .attr("value", function (d) {return d; });
     var initCounty = countyList[0];
     
     //connect to database - rent.csv for now
     rentDict=[];
     tempDict={};
     d3.csv("Resources/rent.csv").then(function(rentData) {
-        for (var i=0; i < rentData.length; i++) {
-            tempDict = {
-                "county":rentData[i]["County"],
-                "studio":+rentData[i]["Studio"].replace(/\$/g,'').replace(/\,/g,''),
-                "1 bedroom":+rentData[i]["1 BR"].replace(/\$/g,'').replace(/\,/g,''),
-                "2 bedroom":+rentData[i]["2 BR"].replace(/\$/g,'').replace(/\,/g,''),
-                "3 bedroom":+rentData[i]["3 BR"].replace(/\$/g,'').replace(/\,/g,''),
-                "4 bedroom":+rentData[i]["4 BR"].replace(/\$/g,'').replace(/\,/g,''),
-                "population":+rentData[i]["Est. Population"].replace(/\,/g,'')
-            }
-            rentDict.push(tempDict);
-        }
-
+        var rentDict = setRentDict(rentData);
         // set the variables we need for all of our charts
         variablesList = setVariables(rentDict, initCounty);
 
@@ -83,12 +71,42 @@ function init(){
 //update plots when dropdown selection changes
 function optionChanged() {
     //select the dropdown item first before setting the value
-    let dropdown = d3.select("#selCounties");
+    let dropdown = d3.select("#selCounty");
     let county = dropdown.property("value");
 
     buildPlots(county);
+    countyStats(county);
 };
 
+// setting the list of dictionaries used in the rent bar chart
+// all the numeric values read in as "$### ", so we need to clean that up and make them actually numeric
+function setRentDict(rentData) {
+    for (var i=0; i < rentData.length; i++) {
+        tempDict = {
+            "county":rentData[i]["County"],
+            "studio":+rentData[i]["Studio"].replace(/\$/g,'').replace(/\,/g,''),
+            "1 bedroom":+rentData[i]["1 BR"].replace(/\$/g,'').replace(/\,/g,''),
+            "2 bedroom":+rentData[i]["2 BR"].replace(/\$/g,'').replace(/\,/g,''),
+            "3 bedroom":+rentData[i]["3 BR"].replace(/\$/g,'').replace(/\,/g,''),
+            "4 bedroom":+rentData[i]["4 BR"].replace(/\$/g,'').replace(/\,/g,''),
+            "population":+rentData[i]["Est. Population"].replace(/\,/g,'')
+        }
+        rentDict.push(tempDict);
+    }
+    return rentDict;
+};
+
+/* set the important variables for all of our charts.
+varList: {
+    "county": selected county,
+    "barValues": {
+        "Studio":average rent of studio apt in county
+        "1 Bedroom":average rent of 1 bed apt in county
+        "2 Bedroom":average rent of 2 bed apt in county
+        "3 Bedroom":average rent of 3 bed apt in county
+        "4 Bedroom":average rent of 4 bed apt in county
+    }
+} */
 function setVariables(data,countyOfInterest) {
     // set up the variable list- right now, interested only in rent
     var varList = {
@@ -102,6 +120,7 @@ function setVariables(data,countyOfInterest) {
         },
     };
 
+    console.log(JSON.stringify(data));
     var dataCountyFilter = data.filter(row => row["county"].includes(countyOfInterest));
 
     // the dataset is filtering on rows that include the county name, so there may be more than one (e.g. Cherokee County in the Rent Dataset = Cherokee County Metro)
@@ -123,7 +142,9 @@ function setVariables(data,countyOfInterest) {
     return varList;
 };
 
+// set the list of variables Plotly uses to create our bar chart
 function barChart(varList){
+    console.log(`barChart county: ${JSON.stringify(varList["county"])}`)
     var xValue = Object.keys(varList["barValues"]);
     var yValue = Object.values(varList["barValues"]);
     var barchart = {
@@ -136,6 +157,7 @@ function barChart(varList){
     return bardata;
 };
 
+// similar to barChart, we set a list of variables Plotly will use for the bubble chart
 function bubbleChart(xValue,yValue,labels){
     var bubblechart = {
         x:xValue,
@@ -152,18 +174,30 @@ function bubbleChart(xValue,yValue,labels){
     return bubbles;
 };
 
+/* after the dropdown selection changes, we'll call this function
+to make the actual updates to our charts. we'll need to reset the variables
+list using the setVariables function and then make a dictionary of things
+to update within the chart itself, rather than creating a whole new plot
+(i.e. using Plotly.restyle instead of Plotly.newPlot) */
 function buildPlots(county) {
     var variablesList = {};
-    d3.csv(url).then(function (data){
-        variablesList = setVariables(data, county);
+    d3.csv("Resources/rent.csv").then(function(rentData) {
+        var rentDict = setRentDict(rentData);
+        variablesList = setVariables(rentDict, county);
 
-        var chartdata = barChart(xValue,yValue);
+        var chartdata = barChart(variablesList);
+        console.log(`buildPlots color: ${countyColors(county)}`)
         var updateData = {
             "x":[chartdata[0].x],
             "y":[chartdata[0].y],
-            "text":chartdata[0].text
+            "marker.color":[countyColors(county)]
         }
-        Plotly.restyle("bar",updateData)
+        var updateLayout = {
+            "title":chartdata[0].title,
+            
+        }
+        console.log(`updateData: ${JSON.stringify(updateData)}`)
+        Plotly.update("bar",updateData,updateLayout)
 
         chartdata = bubbleChart(xValue,yValue,labels)
         var updateData = {
@@ -181,21 +215,40 @@ function buildPlots(county) {
 We're not making any updates with Plotly; it's simply updating a list of attributes about
 the county in particular that we need to update. */
 function countyStats(county) {
-    var statsCard = d3.select("#county-statistics")
+    var countyStatsText = d3.select("#county-statistics")
     d3.csv("Resources/atl_data.csv").then(function(data) {
-        console.log(county)
         var statsFiltered = data.filter(row => row["County"].toLowerCase().includes(county.toLowerCase()));
-        console.log(`countystats: ${JSON.stringify(statsFiltered)}`);
 
         //need to clear what's in there currently to make room for new stuff
-        statsCard.selectAll("p").remove();
+        countyStatsText.selectAll("p").remove();
         // for each row (should only be 1) and for each value in the list, print it to the paragraph element
         statsFiltered.forEach((row) => {
             for (const [key,value] of Object.entries(row)) {
-                statsCard.append("p").text(`${key}: ${value}`);
+                countyStatsText.append("p").text(`${key}: ${value}`);
             };
         })
     })
+
+    // update header
+    console.log("update header piece")
+    var countyStats = d3.select("stats-card")
+    countyStats.style.backgroundColor = countyColors(county);
+};
+
+// create function to color counties
+function countyColors(county) {
+    if (county.toLowerCase().includes('cherokee')) return '#626542'
+    else if (county.toLowerCase().includes('clayton')) return '#ab9170'
+    else if (county.toLowerCase().includes('cobb')) return '#b48a8f'
+    else if (county.toLowerCase().includes('dekalb')) return '#849894'
+    else if (county.toLowerCase().includes('douglas')) return '#344b3c'
+    else if (county.toLowerCase().includes('fayette')) return '#bc7234'
+    else if (county.toLowerCase().includes('forsyth')) return '#48544c'
+    else if (county.toLowerCase().includes('fulton')) return '#7865be'
+    else if (county.toLowerCase().includes('gwinnett')) return '#66c2a5'
+    else if (county.toLowerCase().includes('henry')) return '#869bbb'
+    else if (county.toLowerCase().includes('rockdale')) return '#a28c94'
+    else return 'black'
 };
 
 //need to run init function to start

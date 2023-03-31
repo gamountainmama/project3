@@ -42,13 +42,14 @@
                         <select class= "form-select" id="selCounty" onchange="optionChanged(this.value)"></select>
                     </div>
                 </div>
-                <div class="card" style="background-color: #344b3c; margin-top: 5px">
+                <div id="stats-card" class="card" style="background-color: #344b3c; margin-top: 5px">
                     <div class="card-body">
-                      <h3 class="card-title text-white">County Statistics</h3>
+                      <h3 class="card-title text-white" style="object-fit: cover;">County Statistics</h3>
                       <div id="county-statistics" class="card-text"></div>
                     </div>
                   </div>
             </div>
+            <!-- rent bar chart in same line as county selection -->
             <div class="col-md-8">
                 <div id="bar"></div>
             </div>
