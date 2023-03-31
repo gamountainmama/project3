@@ -5,3 +5,10 @@ element {
     --bluegrey: "#849894";
     --forestgreen: "#344b3c";
 }
+
+#map,
+body,
+html {
+  height: 400px;
+  width: 800px;
+}
