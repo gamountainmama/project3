@@ -15,11 +15,14 @@
      integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
      crossorigin="" />
 
+    <!-- AOS (animate on scroll JS)-->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
 </head>
 
 <body>
     <!-- Header Section for the Dashboard -->
-    <div class="container-fluid">
+    <div class="container-fluid" data-aos="fade-down">
         <img src="images/thumbnail_mountain.png" class="vw-100 opacity-50" style="max-height: 140px; object-fit: cover;" alt="Mountain Theme">
         <div class="img-responsive card-img-overlay">
             <div class="text-center">
@@ -37,29 +40,29 @@
             <!-- Dropdown Menu for County Selection -->
             <div class="col-md-4">
                 <div class="card text-white" style="background-color: #626542">
-                    <div class="card-body">
+                    <div class="card-body" data-aos="fade-right">
                         <h3 class="card-title">County Selection</h3>
                         <select class= "form-select" id="selCounty" onchange="optionChanged(this.value)"></select>
                     </div>
                 </div>
                 <div id="stats-card" class="card" style="background-color: #344b3c; margin-top: 5px">
-                    <div class="card-body">
+                    <div class="card-body" data-aos="fade-left">
                       <h3 class="card-title text-white" style="object-fit: cover;">County Statistics</h3>
                       <div id="county-statistics" class="card-text"></div>
                     </div>
                   </div>
             </div>
             <!-- rent bar chart in same line as county selection -->
-            <div class="col-md-8">
+            <div class="col-md-8" data-aos="slide-left">
                 <div id="bar"></div>
             </div>
         </div>
         <!-- Within second row, more graphs -->
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-6" data-aos="slide-up">
                 <div id="weather"></div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6" data-aos="slide-down">
                 <div id="bubble"></div>
             </div>
         </div>
@@ -67,7 +70,7 @@
     
     <!-- Within last row, the glorious map app -->
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12" data-aos="zoom-in">
             <div id="map"></div>
         </div>
     </div>
@@ -85,6 +88,11 @@
     <script src="./map.js"></script>
     <script src="./app.js"></script>
 
+    <!-- AOS JavaScript-->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
 
 </body>
 
