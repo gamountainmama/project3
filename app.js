@@ -254,7 +254,7 @@ function countyColors(county) {
 //need to run init function to start
 init();
 
-// run AOS script to animate widgets
+// run AOS script to animate
 AOS.init({
     duration: 1200,
   })
