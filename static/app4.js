@@ -3,30 +3,30 @@ Frances Jay, John Kiersznowski, Sea Gun Lee, Carol Love
 GT Project 3
 Interactive Map of Atlanta
 */
-
-import AOS from 'aos';
-
 //initialize
 function init(){
-    d3.json('/data').then(data=>{
-        console.log(`getCountyData: ${JSON.stringify(data)}`)
-        var countyList=[];
-        console.log(`counties: ${JSON.stringify(counties)}`);
-        for (i=0; i < counties.length; i++){
-            countyList.push(counties[i].name);
-        }
-        console.log(`all counties: ${countyList}`);
-        d3.select("#selCounty")
-            .selectAll('myOptions')
-                .data(countyList)
-            .enter()
-                .append('option')
-            .text(function (d) {return d; })
-            .attr("value", function (d) {return d; });
-        var initCounty = countyList[0];
-
+    //dropdown menu
+    var countyList=[];
+    console.log(`counties: ${JSON.stringify(counties)}`);
+    for (i=0; i < counties.length; i++){
+        countyList.push(counties[i].name);
+    }
+    console.log(`all counties: ${countyList}`);
+    d3.select("#selCounty")
+        .selectAll('myOptions')
+            .data(countyList)
+        .enter()
+            .append('option')
+        .text(function (d) {return d; })
+        .attr("value", function (d) {return d; });
+    var initCounty = countyList[0];
+    
+    // load in our data from the data route in flaskapp.py
+    d3.json('/data').then(results=>{
+        console.log(JSON.stringify(results))
         
-        countyStats(initCounty);
+        // set up the county stats card with the first county in our list
+        countyStats(initCounty, results);
     })
 };
 
@@ -42,7 +42,7 @@ function optionChanged() {
 /* this function changes what is displayed within the statistcis card on the site
 We're not making any updates with Plotly; it's simply updating a list of attributes about
 the county in particular that we need to update. */
-function countyStats(county) {
+function countyStats(county, data) {
     var countyStatsText = d3.select("#county-statistics")
 
     var countyFiltered = data.filter(row => row['Name'].toLowerCase().includes(county.toLowerCase()));
@@ -78,6 +78,6 @@ function countyColors(county) {
 init();
 
 // run AOS script to animate
-AOS.init({
+/* AOS.init({
     duration: 1200,
-  })
+  }) */
