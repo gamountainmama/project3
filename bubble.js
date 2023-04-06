@@ -1,4 +1,4 @@
-var data = d3.csv("Resources/atl_data.csv").then(function(data) {
+var data = d3.csv("Resources/atlanta.csv").then(function(data) {
     var meanTravel = [];
     for (i=0;i<data.length;i++) {
         meanTravel.push(data[i]["2016-2020 Mean Travel Time in Minutes"])
