@@ -30,12 +30,12 @@ function init(){
         countyStats(initCounty, results);
 
         var varList = setVariables(initCounty,results)
-        var chartdata = eduChartList(varList["school"],varList["sat"],varList["act"],varList["county"],varList["color"],varList["border"])
+        var chartdata = eduChartList(varList["ccrpi"],varList["sat"],varList["act"],varList["county"],varList["color"],varList["border"])
         var layout = {
-            title: "Number of Public Schools vs Standardized Test Scores",
+            title: "CCRPI Scores vs Standardized Test Scores",
             xaxis: {
                 title: {
-                    text: "Number of Public Schools"
+                    text: "CCRPI Score"
                 },
                 showgrid:true,
             },
@@ -123,6 +123,7 @@ function setVariables(activeCounty, data){
     var actList = [];
     var colorList=[];
     var activeBorder=[];
+    var ccrpiList = [];
 
     for (i=0; i<data["data"].length; i++){
         countyList[i] = data["data"][i]["Name"];
@@ -130,6 +131,7 @@ function setVariables(activeCounty, data){
         satList[i] = data["data"][i]["Average SAT Score, Combined (2020-21)"];
         actList[i] = data["data"][i]["ACT Composite Score (2019-20)"];
         colorList[i] = countyColors(data["data"][i]["Name"]);
+        ccrpiList[i] = data["data"][i]["CCRPI Score (2019)"];
         if (data["data"][i]["Name"].toLowerCase() == activeCounty.toLowerCase()){
             activeBorder[i]=2
         }
@@ -143,6 +145,7 @@ function setVariables(activeCounty, data){
         "school":schoolList,
         "sat":satList,
         "act":actList,
+        "ccrpi":ccrpiList,
         "color":colorList,
         "border":activeBorder
     };
@@ -150,13 +153,13 @@ function setVariables(activeCounty, data){
 };
 
 // set list of variables for Plotly
-function eduChartList(schoolList,satList,actList,countyList,colorList,activeBorder){
+function eduChartList(ccrpiList,satList,actList,countyList,colorList,activeBorder){
     var labels = []
     for (i=0; i < countyList.length; i++){
         labels[i] = `${countyList[i]}<br>ACT Score: ${actList[i]}`
     }
     var chartElement = {
-        x:schoolList,
+        x:ccrpiList,
         y:satList,
         mode:"markers",
         text:labels,
@@ -177,7 +180,7 @@ function eduChartList(schoolList,satList,actList,countyList,colorList,activeBord
 // create function for populating the chart
 function educationChartUpdate(activeCounty, data){
     var varList = setVariables(activeCounty,data);
-    var chartdata = eduChartList(varList["school"],varList["sat"],varList["act"],varList["county"],varList["color"],varList["border"])
+    var chartdata = eduChartList(varList["ccrpi"],varList["sat"],varList["act"],varList["county"],varList["color"],varList["border"])
     var updateData = {
         "x":[chartdata[0].x],
         "y":[chartdata[0].y],
