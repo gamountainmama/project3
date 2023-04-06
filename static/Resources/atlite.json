@@ -1,0 +1,287 @@
+[{
+  "_id": {
+    "$oid": "642e011b7ad5328c44b38d3b"
+  },
+  "County": "CHEROKEE",
+  "2020 Total Crash Fatalities": 21,
+  "2020 Total Index Crimes Reported": 1275,
+  "2020 Model-Based Estimate of Median Household Income, Dollars": "$90,675 ",
+  "2020 Average Weekly Wages, All Industries, Dollars": "$863 ",
+  "2020-21 Public Schools": 37,
+  "2019 Public School CCRPI Score": 83.4,
+  "2020-21 Most Recent SAT Administration Average Scores, Combined": 1129,
+  "2019-20 ACT Composite Score": 22,
+  "2016-2020 Mean Travel Time in Minutes": 67.7,
+  "2020 Votes Cast for President, Democratic Party, Percent": "29.50%",
+  "2020 Votes Cast for President, Republican Party, Percent": "68.80%",
+  "2020 Total Persons in Poverty": 17630,
+  "2020 Unemployment Rate": "4.80%",
+  "median gross rent (2017 - 2021)": "$1,421 ",
+  "median value of owner-occupied housing units (2017 - 2021)": "$292,300 ",
+  "Est": {
+    " Population": 262155
+  },
+  "Avg_Temp": "60.5°F",
+  "Max_Temp": "71.3°F",
+  "Min_Temp": "49.6°F"
+},{
+  "_id": {
+    "$oid": "642e011b7ad5328c44b38d3c"
+  },
+  "County": "CLAYTON",
+  "2020 Total Crash Fatalities": 49,
+  "2020 Total Index Crimes Reported": 9361,
+  "2020 Model-Based Estimate of Median Household Income, Dollars": "$49,370 ",
+  "2020 Average Weekly Wages, All Industries, Dollars": "$1,200 ",
+  "2020-21 Public Schools": 66,
+  "2019 Public School CCRPI Score": 62.4,
+  "2020-21 Most Recent SAT Administration Average Scores, Combined": 977,
+  "2019-20 ACT Composite Score": 17,
+  "2016-2020 Mean Travel Time in Minutes": 62.1,
+  "2020 Votes Cast for President, Democratic Party, Percent": "85.00%",
+  "2020 Votes Cast for President, Republican Party, Percent": "14.10%",
+  "2020 Total Persons in Poverty": 48136,
+  "2020 Unemployment Rate": "10.30%",
+  "median gross rent (2017 - 2021)": "$1,100 ",
+  "median value of owner-occupied housing units (2017 - 2021)": "$136,600 ",
+  "Est": {
+    " Population": 294335
+  },
+  "Avg_Temp": "63.3°F",
+  "Max_Temp": "73.9°F",
+  "Min_Temp": "52.6°F"
+},{
+  "_id": {
+    "$oid": "642e011b7ad5328c44b38d3d"
+  },
+  "County": "COBB",
+  "2020 Total Crash Fatalities": 85,
+  "2020 Total Index Crimes Reported": 13515,
+  "2020 Model-Based Estimate of Median Household Income, Dollars": "$81,517 ",
+  "2020 Average Weekly Wages, All Industries, Dollars": "$1,259 ",
+  "2020-21 Public Schools": 110,
+  "2019 Public School CCRPI Score": 86.1,
+  "2020-21 Most Recent SAT Administration Average Scores, Combined": 1144,
+  "2019-20 ACT Composite Score": 23,
+  "2016-2020 Mean Travel Time in Minutes": 61.6,
+  "2020 Votes Cast for President, Democratic Party, Percent": "56.30%",
+  "2020 Votes Cast for President, Republican Party, Percent": "42.00%",
+  "2020 Total Persons in Poverty": 69097,
+  "2020 Unemployment Rate": "5.90%",
+  "median gross rent (2017 - 2021)": "$1,367 ",
+  "median value of owner-occupied housing units (2017 - 2021)": "$293,800 ",
+  "Est": {
+    " Population": 762500
+  },
+  "Avg_Temp": "61.9°F",
+  "Max_Temp": "72.7°F",
+  "Min_Temp": "51.2°F"
+},{
+  "_id": {
+    "$oid": "642e011b7ad5328c44b38d3e"
+  },
+  "County": "DEKALB",
+  "2020 Total Crash Fatalities": 92,
+  "2020 Total Index Crimes Reported": 23451,
+  "2020 Model-Based Estimate of Median Household Income, Dollars": "$69,545 ",
+  "2020 Average Weekly Wages, All Industries, Dollars": "$1,217 ",
+  "2020-21 Public Schools": 131,
+  "2019 Public School CCRPI Score": 75.4,
+  "2020-21 Most Recent SAT Administration Average Scores, Combined": 1100,
+  "2019-20 ACT Composite Score": 20,
+  "2016-2020 Mean Travel Time in Minutes": 32,
+  "2020 Votes Cast for President, Democratic Party, Percent": "83.10%",
+  "2020 Votes Cast for President, Republican Party, Percent": "15.70%",
+  "2020 Total Persons in Poverty": 118345,
+  "2020 Unemployment Rate": "7.90%",
+  "median gross rent (2017 - 2021)": "$1,312 ",
+  "median value of owner-occupied housing units (2017 - 2021)": "$255,600 ",
+  "Est": {
+    " Population": 758634
+  },
+  "Avg_Temp": "62.6°F",
+  "Max_Temp": "73.4°F",
+  "Min_Temp": "51.9°F"
+},{
+  "_id": {
+    "$oid": "642e011b7ad5328c44b38d3f"
+  },
+  "County": "DOUGLAS",
+  "2020 Total Crash Fatalities": 13,
+  "2020 Total Index Crimes Reported": 3464,
+  "2020 Model-Based Estimate of Median Household Income, Dollars": "$65,269 ",
+  "2020 Average Weekly Wages, All Industries, Dollars": "$859 ",
+  "2020-21 Public Schools": 35,
+  "2019 Public School CCRPI Score": 75.9,
+  "2020-21 Most Recent SAT Administration Average Scores, Combined": 1038,
+  "2019-20 ACT Composite Score": 19,
+  "2016-2020 Mean Travel Time in Minutes": 33.7,
+  "2020 Votes Cast for President, Democratic Party, Percent": "62.00%",
+  "2020 Votes Cast for President, Republican Party, Percent": "36.80%",
+  "2020 Total Persons in Poverty": 16770,
+  "2020 Unemployment Rate": "7.30%",
+  "median gross rent (2017 - 2021)": "$1,194 ",
+  "median value of owner-occupied housing units (2017 - 2021)": "$182,300 ",
+  "Est": {
+    " Population": 143520
+  },
+  "Avg_Temp": "62.2°F",
+  "Max_Temp": "73.1°F",
+  "Min_Temp": "51.2°F"
+},{
+  "_id": {
+    "$oid": "642e011b7ad5328c44b38d40"
+  },
+  "County": "FAYETTE",
+  "2020 Total Crash Fatalities": 6,
+  "2020 Total Index Crimes Reported": 1359,
+  "2020 Model-Based Estimate of Median Household Income, Dollars": "$98,623 ",
+  "2020 Average Weekly Wages, All Industries, Dollars": "$952 ",
+  "2020-21 Public Schools": 24,
+  "2019 Public School CCRPI Score": 89.5,
+  "2020-21 Most Recent SAT Administration Average Scores, Combined": 1154,
+  "2019-20 ACT Composite Score": 23,
+  "2016-2020 Mean Travel Time in Minutes": 32.2,
+  "2020 Votes Cast for President, Democratic Party, Percent": "45.90%",
+  "2020 Votes Cast for President, Republican Party, Percent": "52.70%",
+  "2020 Total Persons in Poverty": 6079,
+  "2020 Unemployment Rate": "5.30%",
+  "median gross rent (2017 - 2021)": "$1,482 ",
+  "median value of owner-occupied housing units (2017 - 2021)": "$309,300 ",
+  "Est": {
+    " Population": 117828
+  },
+  "Avg_Temp": "63.3°F",
+  "Max_Temp": "74.1°F",
+  "Min_Temp": "52.5°F"
+},{
+  "_id": {
+    "$oid": "642e011b7ad5328c44b38d41"
+  },
+  "County": "FORSYTH",
+  "2020 Total Crash Fatalities": 12,
+  "2020 Total Index Crimes Reported": 1231,
+  "2020 Model-Based Estimate of Median Household Income, Dollars": "$116,690 ",
+  "2020 Average Weekly Wages, All Industries, Dollars": "$1,030 ",
+  "2020-21 Public Schools": 41,
+  "2019 Public School CCRPI Score": 92.7,
+  "2020-21 Most Recent SAT Administration Average Scores, Combined": 1178,
+  "2019-20 ACT Composite Score": 25,
+  "2016-2020 Mean Travel Time in Minutes": 33.1,
+  "2020 Votes Cast for President, Democratic Party, Percent": "32.60%",
+  "2020 Votes Cast for President, Republican Party, Percent": "65.80%",
+  "2020 Total Persons in Poverty": 12669,
+  "2020 Unemployment Rate": "4.50%",
+  "median gross rent (2017 - 2021)": "$1,619 ",
+  "median value of owner-occupied housing units (2017 - 2021)": "$385,600 ",
+  "Est": {
+    " Population": 245754
+  },
+  "Avg_Temp": "60.4°F",
+  "Max_Temp": "71.3°F",
+  "Min_Temp": "49.5°F"
+},{
+  "_id": {
+    "$oid": "642e011b7ad5328c44b38d42"
+  },
+  "County": "FULTON",
+  "2020 Total Crash Fatalities": 145,
+  "2020 Total Index Crimes Reported": 13581,
+  "2020 Model-Based Estimate of Median Household Income, Dollars": "$71,504 ",
+  "2020 Average Weekly Wages, All Industries, Dollars": "$1,641 ",
+  "2020-21 Public Schools": 110,
+  "2019 Public School CCRPI Score": 83.8,
+  "2020-21 Most Recent SAT Administration Average Scores, Combined": 1098,
+  "2019-20 ACT Composite Score": 24,
+  "2016-2020 Mean Travel Time in Minutes": 28.9,
+  "2020 Votes Cast for President, Democratic Party, Percent": "72.60%",
+  "2020 Votes Cast for President, Republican Party, Percent": "26.20%",
+  "2020 Total Persons in Poverty": 136220,
+  "2020 Unemployment Rate": "7.90%",
+  "median gross rent (2017 - 2021)": "$1,367 ",
+  "median value of owner-occupied housing units (2017 - 2021)": "$345,100 ",
+  "Est": {
+    " Population": 1054286
+  },
+  "Avg_Temp": "62.3°F",
+  "Max_Temp": "73.1°F",
+  "Min_Temp": "51.6°F"
+},{
+  "_id": {
+    "$oid": "642e011b7ad5328c44b38d43"
+  },
+  "County": "GWINNETT",
+  "2020 Total Crash Fatalities": 57,
+  "2020 Total Index Crimes Reported": 285,
+  "2020 Model-Based Estimate of Median Household Income, Dollars": "$61,071 ",
+  "2020 Average Weekly Wages, All Industries, Dollars": "$785 ",
+  "2020-21 Public Schools": 14,
+  "2019 Public School CCRPI Score": 80.9,
+  "2020-21 Most Recent SAT Administration Average Scores, Combined": 1107,
+  "2019-20 ACT Composite Score": 26,
+  "2016-2020 Mean Travel Time in Minutes": 53.3,
+  "2020 Votes Cast for President, Democratic Party, Percent": "17.40%",
+  "2020 Votes Cast for President, Republican Party, Percent": "81.40%",
+  "2020 Total Persons in Poverty": 5963,
+  "2020 Unemployment Rate": "5.40%",
+  "median gross rent (2017 - 2021)": "$1,414 ",
+  "median value of owner-occupied housing units (2017 - 2021)": "$256,700 ",
+  "Est": {
+    " Population": 948505
+  },
+  "Avg_Temp": "59.6°F",
+  "Max_Temp": "70.1°F",
+  "Min_Temp": "49.1°F"
+},{
+  "_id": {
+    "$oid": "642e011b7ad5328c44b38d44"
+  },
+  "County": "HENRY",
+  "2020 Total Crash Fatalities": 28,
+  "2020 Total Index Crimes Reported": 2169,
+  "2020 Model-Based Estimate of Median Household Income, Dollars": "$69,442 ",
+  "2020 Average Weekly Wages, All Industries, Dollars": "$962 ",
+  "2020-21 Public Schools": 37,
+  "2019 Public School CCRPI Score": 83.1,
+  "2020-21 Most Recent SAT Administration Average Scores, Combined": 1096,
+  "2019-20 ACT Composite Score": 21,
+  "2016-2020 Mean Travel Time in Minutes": 22.4,
+  "2020 Votes Cast for President, Democratic Party, Percent": "43.10%",
+  "2020 Votes Cast for President, Republican Party, Percent": "55.50%",
+  "2020 Total Persons in Poverty": 17041,
+  "2020 Unemployment Rate": "5.20%",
+  "median gross rent (2017 - 2021)": "$1,194 ",
+  "median value of owner-occupied housing units (2017 - 2021)": "$182,300 ",
+  "Est": {
+    " Population": 236615
+  },
+  "Avg_Temp": "65.4°F",
+  "Max_Temp": "77.4°F",
+  "Min_Temp": "53.4°F"
+},{
+  "_id": {
+    "$oid": "642e011b7ad5328c44b38d45"
+  },
+  "County": "ROCKDALE",
+  "2020 Total Crash Fatalities": 17,
+  "2020 Total Index Crimes Reported": 18,
+  "2020 Model-Based Estimate of Median Household Income, Dollars": "$53,163 ",
+  "2020 Average Weekly Wages, All Industries, Dollars": "$738 ",
+  "2020-21 Public Schools": 2,
+  "2019 Public School CCRPI Score": 80.8,
+  "2020-21 Most Recent SAT Administration Average Scores, Combined": 1190,
+  "2019-20 ACT Composite Score": 20,
+  "2016-2020 Mean Travel Time in Minutes": 51.8,
+  "2020 Votes Cast for President, Democratic Party, Percent": "20.30%",
+  "2020 Votes Cast for President, Republican Party, Percent": "79.10%",
+  "2020 Total Persons in Poverty": 779,
+  "2020 Unemployment Rate": "4.30%",
+  "median gross rent (2017 - 2021)": "$1,156 ",
+  "median value of owner-occupied housing units (2017 - 2021)": "$174,600 ",
+  "Est": {
+    " Population": 92983
+  },
+  "Avg_Temp": "64.9°F",
+  "Max_Temp": "76.0°F",
+  "Min_Temp": "53.7°F"
+}]
