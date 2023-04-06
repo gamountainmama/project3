@@ -4,10 +4,16 @@ GT Project 3
 Interactive Map of Atlanta
 */
 
-//const url="https://raw.githubusercontent.com/gamountainmama/project3/frances/counties.csv"
+import AOS from 'aos';
 
 //initialize
 function init(){
+    d3.json('/data').then(data=>{
+        console.log(`getCountyData: ${JSON.stringify(data)}`)
+
+    })
+
+    // set up variables and dropdown
     var variablesList={};
     var countyList=[];
     console.log(`counties: ${JSON.stringify(counties)}`);
@@ -23,8 +29,11 @@ function init(){
         .text(function (d) {return d; })
         .attr("value", function (d) {return d; });
     var initCounty = countyList[0];
+
+
+    countyStats(initCounty);
     
-    //connect to database - rent.csv for now
+    /* //connect to database - rent.csv for now
     rentDict=[];
     tempDict={};
     d3.csv("Resources/rent.csv").then(function(rentData) {
@@ -64,8 +73,13 @@ function init(){
                 }
             }
         }
-        countyStats(initCounty);
-    })
+        countyStats(initCounty); 
+    }) */
+};
+
+function receiveRentData(header, data) {
+    console.log(header)
+    console.log(data)
 };
 
 //update plots when dropdown selection changes
@@ -75,7 +89,7 @@ function optionChanged() {
     let county = dropdown.property("value");
 
     buildPlots(county);
-    countyStats(county);
+    
 };
 
 // setting the list of dictionaries used in the rent bar chart
@@ -179,7 +193,7 @@ to make the actual updates to our charts. we'll need to reset the variables
 list using the setVariables function and then make a dictionary of things
 to update within the chart itself, rather than creating a whole new plot
 (i.e. using Plotly.restyle instead of Plotly.newPlot) */
-function buildPlots(county) {
+/* function buildPlots(county) {
     var variablesList = {};
     d3.csv("Resources/rent.csv").then(function(rentData) {
         var rentDict = setRentDict(rentData);
@@ -209,14 +223,23 @@ function buildPlots(county) {
         }
         Plotly.restyle("bubble",updateData);
     });
-};
+}; */
 
 /* this function changes what is displayed within the statistcis card on the site
 We're not making any updates with Plotly; it's simply updating a list of attributes about
 the county in particular that we need to update. */
 function countyStats(county) {
     var countyStatsText = d3.select("#county-statistics")
-    d3.csv("Resources/atl_data.csv").then(function(data) {
+
+    var countyFiltered = data.filter(row => row['Name'].toLowerCase().includes(county.toLowerCase()));
+    countyStatsText.selectAll('p').remove();
+    countyFiltered.forEach(row => {
+        for (const [key,value] of Object.entries(row)) {
+            countyStatsText.append("p").text(`${key}: ${value}`);
+        }
+    });
+
+    /* d3.csv("Resources/atl_data.csv").then(function(data) {
         var statsFiltered = data.filter(row => row["County"].toLowerCase().includes(county.toLowerCase()));
 
         //need to clear what's in there currently to make room for new stuff
@@ -227,7 +250,7 @@ function countyStats(county) {
                 countyStatsText.append("p").text(`${key}: ${value}`);
             };
         })
-    })
+    }) */
 
     // update header
     console.log("update header piece")
