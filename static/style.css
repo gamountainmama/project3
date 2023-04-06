@@ -10,7 +10,7 @@ element {
 body,
 html {
   height: 400px;
-  width: 800px;
+  width: 650px;
 }
 
 * {
@@ -26,4 +26,22 @@ html {
   text-align: center;
   color: #FFF;
   font-size: 3em;
+}
+
+#inner {
+  overflow:hidden;
+  width:2000px;
+}
+
+.user-select-none-svg-container {
+  position:relative;
+  max-width: 600px;
+  height: auto;
+}
+
+.container {
+  overflow:hidden;
+  position: relative;
+  margin:20px;
+  padding: 0px;
 }

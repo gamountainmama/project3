@@ -30,18 +30,22 @@ function init(){
         countyStats(initCounty, results);
 
         var varList = setVariables(initCounty,results)
-        var chartdata = eduChartList(varList["school"],varList["sat"],varList["county"],varList["color"],varList["border"])
+        var chartdata = eduChartList(varList["school"],varList["sat"],varList["act"],varList["county"],varList["color"],varList["border"])
         var layout = {
             title: "Number of Public Schools vs Standardized Test Scores",
             xaxis: {
                 title: {
                     text: "Number of Public Schools"
-                }
+                },
+                showgrid:true,
             },
             yaxis: {
                 title: {
                     text: "Average SAT Score"
                 }
+            },
+            grid: {
+                columns:5
             }
         }
         Plotly.newPlot("education",chartdata,layout);
@@ -146,16 +150,20 @@ function setVariables(activeCounty, data){
 };
 
 // set list of variables for Plotly
-function eduChartList(schoolList,satList,countyList,colorList,activeBorder){
+function eduChartList(schoolList,satList,actList,countyList,colorList,activeBorder){
+    var labels = []
+    for (i=0; i < countyList.length; i++){
+        labels[i] = `${countyList[i]}<br>ACT Score: ${actList[i]}`
+    }
     var chartElement = {
         x:schoolList,
         y:satList,
         mode:"markers",
-        text:countyList,
+        text:labels,
         marker: {
-            size: 20,
+            size: actList,
             color:colorList,
-            symbol:"x",
+            symbol:"circle",
             line: {
                 color:"red",
                 width:activeBorder
@@ -169,7 +177,7 @@ function eduChartList(schoolList,satList,countyList,colorList,activeBorder){
 // create function for populating the chart
 function educationChartUpdate(activeCounty, data){
     var varList = setVariables(activeCounty,data);
-    var chartdata = eduChartList(varList["school"],varList["sat"],varList["county"],varList["color"],varList["border"])
+    var chartdata = eduChartList(varList["school"],varList["sat"],varList["act"],varList["county"],varList["color"],varList["border"])
     var updateData = {
         "x":[chartdata[0].x],
         "y":[chartdata[0].y],

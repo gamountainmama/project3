@@ -34,8 +34,8 @@
     </div>
 
     <!-- Within one container, Select County dropdown -->
-    <div>
-        <div class="Layout-sidebar" style="overflow-x: hidden; float:left; max-width: fit-content; margin: 15px;" data-aos="fade-right">
+    <div  id="inner">
+        <div style="float:left; max-width: fit-content; margin: 15px;" data-aos="fade-right">
             <!-- Within one row, we'll have the dropdown menu and 1 graph -->
             <!-- Dropdown Menu for County Selection -->
             <div>
@@ -53,14 +53,18 @@
                 </div>
             </div>
         </div>
-        <div style="float:left" data-aos="slide-left">
-            <div id="education"></div>
+        <div class="container">
+            <div style="float:left;" data-aos="slide-left">
+                <div id="education"></div>
+            </div>
+            <div style="max-width: 600px; position:relative;" data-aos="zoom-in">
+                <div id="map"></div>
+            </div>
         </div>
         
+        
         <!-- Within last div, the glorious map app -->
-        <div class="container-fluid" style="float:left; max-width: 800px; position:relative;" data-aos="zoom-in">
-            <div id="map"></div>
-        </div>
+        
     </div>
 
     <!-- Leaflet JS -->
