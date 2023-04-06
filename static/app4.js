@@ -3,6 +3,7 @@ Frances Jay, John Kiersznowski, Sea Gun Lee, Carol Love
 GT Project 3
 Interactive Map of Atlanta
 */
+
 //initialize
 function init(){
     //dropdown menu
@@ -27,6 +28,23 @@ function init(){
         
         // set up the county stats card with the first county in our list
         countyStats(initCounty, results);
+
+        var varList = setVariables(initCounty,results)
+        var chartdata = eduChartList(varList["school"],varList["sat"],varList["county"],varList["color"],varList["border"])
+        var layout = {
+            title: "Number of Public Schools vs Standardized Test Scores",
+            xaxis: {
+                title: {
+                    text: "Number of Public Schools"
+                }
+            },
+            yaxis: {
+                title: {
+                    text: "Average SAT Score"
+                }
+            }
+        }
+        Plotly.newPlot("education",chartdata,layout);
     })
 };
 
@@ -41,6 +59,7 @@ function optionChanged() {
         
         // set up the county stats card with the first county in our list
         countyStats(county, results);
+        educationChartUpdate(county,results);
     }) 
 };
 
@@ -92,9 +111,71 @@ function countyColors(county) {
     else return 'black'
 };
 
-init();
+//set Variables
+function setVariables(activeCounty, data){
+    var countyList = [];
+    var schoolList = [];
+    var satList = [];
+    var actList = [];
+    var colorList=[];
+    var activeBorder=[];
 
-// run AOS script to animate
-/* AOS.init({
-    duration: 1200,
-  }) */
+    for (i=0; i<data["data"].length; i++){
+        countyList[i] = data["data"][i]["Name"];
+        schoolList[i]= data["data"][i]["Public Schools Count (2020-21)"];
+        satList[i] = data["data"][i]["Average SAT Score, Combined (2020-21)"];
+        actList[i] = data["data"][i]["ACT Composite Score (2019-20)"];
+        colorList[i] = countyColors(data["data"][i]["Name"]);
+        if (data["data"][i]["Name"].toLowerCase() == activeCounty.toLowerCase()){
+            activeBorder[i]=2
+        }
+        else {
+            activeBorder[i]=0
+        }
+    };
+
+    var varList = {
+        "county":countyList,
+        "school":schoolList,
+        "sat":satList,
+        "act":actList,
+        "color":colorList,
+        "border":activeBorder
+    };
+    return varList;
+};
+
+// set list of variables for Plotly
+function eduChartList(schoolList,satList,countyList,colorList,activeBorder){
+    var chartElement = {
+        x:schoolList,
+        y:satList,
+        mode:"markers",
+        text:countyList,
+        marker: {
+            size: 20,
+            color:colorList,
+            symbol:"x",
+            line: {
+                color:"red",
+                width:activeBorder
+            }
+        }
+    }
+    var chartdata = [chartElement];
+    return chartdata;
+};
+
+// create function for populating the chart
+function educationChartUpdate(activeCounty, data){
+    var varList = setVariables(activeCounty,data);
+    var chartdata = eduChartList(varList["school"],varList["sat"],varList["county"],varList["color"],varList["border"])
+    var updateData = {
+        "x":[chartdata[0].x],
+        "y":[chartdata[0].y],
+        "marker.line.width":[chartdata[0].marker.line.width]
+    }
+    Plotly.restyle("education",updateData);
+};
+
+init();

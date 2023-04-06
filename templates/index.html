@@ -32,44 +32,35 @@
             </div>
         </div>
     </div>
-    <br>
-    <!-- Within one container, Select County dropdown + layout of graphs -->
+
+    <!-- Within one container, Select County dropdown -->
     <div>
-        <!-- Within one row, we'll have the dropdown menu and 1 graph -->
-        <!-- Dropdown Menu for County Selection -->
-        <div class="col-lg-5">
-            <div class="card text-white" style="background-color: #2c3c1e">
-                <div class="card-body" data-aos="fade-right">
-                    <h3 class="card-title">County Selection</h3>
-                    <select class= "form-select" id="selCounty" onchange="optionChanged(this.value)"></select>
+        <div class="Layout-sidebar" style="overflow-x: hidden; float:left; max-width: fit-content; margin: 15px;" data-aos="fade-right">
+            <!-- Within one row, we'll have the dropdown menu and 1 graph -->
+            <!-- Dropdown Menu for County Selection -->
+            <div>
+                <div class="card text-white" style="background-color: #2c3c1e">
+                    <div class="card-body" data-aos="fade-right">
+                        <h3 class="card-title">County Selection</h3>
+                        <select class= "form-select" id="selCounty" onchange="optionChanged(this.value)"></select>
+                    </div>
+                </div>
+                <div id="stats-card" float: left class="card" style="background-color: #344b3c; margin-top: 5px">
+                    <div class="card-body" data-aos="fade-left">
+                        <h3 id="card-title" class="card-title text-white" style="object-fit: cover;">County Statistics</h3>
+                        <div id="county-statistics" class="card-text text-white"></div>
+                    </div>
                 </div>
             </div>
-            <div id="stats-card" float: left class="card" style="background-color: #344b3c; margin-top: 5px">
-                <div class="card-body" data-aos="fade-left">
-                    <h3 id="card-title" class="card-title text-white" style="object-fit: cover;">County Statistics</h3>
-                    <div id="county-statistics" class="card-text text-white"></div>
-                </div>
-            </div>
         </div>
- <!--        rent bar chart in same line as county selection
-        <div class="col-md-8" data-aos="slide-left">
-            <div id="bar"></div>
+        <div style="float:left" data-aos="slide-left">
+            <div id="education"></div>
         </div>
-        Within second row, more graphs
-        <div class="col-md-6" data-aos="slide-up">
-            <div id="weather"></div>
-        </div>
-        <div class="col-md-6" data-aos="slide-down">
-            <div id="bubble"></div>
-        </div> -->
-        <div class="col-lg-8" data-aos="zoom-in">
+        
+        <!-- Within last div, the glorious map app -->
+        <div class="container-fluid" style="float:left; max-width: 800px; position:relative;" data-aos="zoom-in">
             <div id="map"></div>
         </div>
-    </div>
-    
-    <!-- Within last row, the glorious map app -->
-    <div>
-        
     </div>
 
     <!-- Leaflet JS -->
