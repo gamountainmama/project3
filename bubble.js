@@ -19,7 +19,8 @@ var data = d3.csv("Resources/atl_data.csv").then(function(data) {
         }];
     
     var bubbleLayout = {
-        xaxis: {title: 'HELLO'}
+        xaxis: {title: 'Median Income'},
+        yaxis: {title: 'Mean Commute Time'}
         };
     
     // plot the bubble chart
