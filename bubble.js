@@ -15,7 +15,7 @@ var data = d3.csv("Resources/atl_data.csv").then(function(data) {
         x: medIncome,
         y: meanTravel,
         mode: 'markers',
-        marker: {size: meanTravel, color: medIncome},
+        marker: {size: meanTravel, color: "#94aa9b"},
         }];
     
     var bubbleLayout = {
@@ -25,4 +25,7 @@ var data = d3.csv("Resources/atl_data.csv").then(function(data) {
     
     // plot the bubble chart
     Plotly.newPlot('bubble', bubble, bubbleLayout);
+
+var countySelect = = document.getElementById('selCounty');
+if 
 });
