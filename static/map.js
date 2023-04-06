@@ -101,7 +101,7 @@ countySeats = [
     'coordinates': [33.448373019268196, -84.45614733222322]
   },
   {
-    'county': 'Forsyth County',
+    'county': 'Forsyth',
     'seat': 'Cumming',
     'coordinates': [34.20720224578089, -84.13887486261402]
   },
