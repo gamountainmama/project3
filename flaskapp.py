@@ -29,21 +29,21 @@ def getCountyData():
     for county in list(atlDB.atlite.find()):
         countyData.append({
             'Name':county['County'],
-            'Crash Fatalities': county['2020 Total Crash Fatalities'],
-            'Crimes Reported': county['2020 Total Index Crimes Reported'],
-            'Median Household Income': county['2020 Model-Based Estimate of Median Household Income, Dollars'],
-            'Weekly Wages':county['2020 Average Weekly Wages, All Industries, Dollars'],
-            'Public Schools':county['2020-21 Public Schools'],
-            'CCRPI':county['2019 Public School CCRPI Score'],
-            'SAT Combined':county['2020-21 Most Recent SAT Administration Average Scores, Combined'],
-            'ACT':county['2019-20 ACT Composite Score'],
-            'Commute':county['2016-2020 Mean Travel Time in Minutes'],
-            'Dem Votes':county['2020 Votes Cast for President, Democratic Party, Percent'],
-            'Rep Votes': county['2020 Votes Cast for President, Republican Party, Percent'],
-            'Poverty':county['2020 Total Persons in Poverty'],
-            'Unemployment':county['2020 Unemployment Rate'],
-            'Rent':county['median gross rent (2017 - 2021)'],
-            'Owner-occupied units':county['median value of owner-occupied housing units (2017 - 2021)']
+            'Total Crash Fatalities (2020)': county['2020 Total Crash Fatalities'],
+            'Total Crimes Reported (2020)': county['2020 Total Index Crimes Reported'],
+            'Median Household Income (2020)': county['2020 Model-Based Estimate of Median Household Income, Dollars'],
+            'Weekly Wages (2020)':county['2020 Average Weekly Wages, All Industries, Dollars'],
+            'Public Schools Count (2020-21)':county['2020-21 Public Schools'],
+            'CCRPI Score (2019)':county['2019 Public School CCRPI Score'],
+            'Average SAT Score, Combined (2020-21)':county['2020-21 Most Recent SAT Administration Average Scores, Combined'],
+            'ACT Composite Score (2019-20)':county['2019-20 ACT Composite Score'],
+            'Average Commute Time (2016-20)':county['2016-2020 Mean Travel Time in Minutes'],
+            'Democratic Votes, Pct (2020 Presidential Election)':county['2020 Votes Cast for President, Democratic Party, Percent'],
+            'Republican Votes, Pct (2020 Presidential Election)': county['2020 Votes Cast for President, Republican Party, Percent'],
+            'Total Persons in Poverty (2020)':county['2020 Total Persons in Poverty'],
+            'Unemployment Rate (2020)':county['2020 Unemployment Rate'],
+            'Median Gross Rent (2017-21)':county['median gross rent (2017 - 2021)'],
+            'Median Value of Owner-Occupied Units (2017-21)':county['median value of owner-occupied housing units (2017 - 2021)']
         })
     return countyData
 

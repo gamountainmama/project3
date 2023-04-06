@@ -36,7 +36,12 @@ function optionChanged() {
     let dropdown = d3.select("#selCounty");
     let county = dropdown.property("value");
 
-    countyStats(county);    
+    // load in our data from the data route in flaskapp.py
+    d3.json('/data').then(results=>{
+        
+        // set up the county stats card with the first county in our list
+        countyStats(county, results);
+    }) 
 };
 
 /* this function changes what is displayed within the statistcis card on the site
@@ -45,18 +50,30 @@ the county in particular that we need to update. */
 function countyStats(county, data) {
     var countyStatsText = d3.select("#county-statistics")
 
-    var countyFiltered = data.filter(row => row['Name'].toLowerCase().includes(county.toLowerCase()));
-    countyStatsText.selectAll('p').remove();
-    countyFiltered.forEach(row => {
-        for (const [key,value] of Object.entries(row)) {
-            countyStatsText.append("p").text(`${key}: ${value}`);
+    console.log(data["data"])
+
+    var filtered=[];
+    
+    for (i=0; i<data["data"].length; i++){
+        if ((data["data"][i]["Name"]).toLowerCase() == county.toLowerCase()){
+            filtered[county] = data["data"][i]
         }
-    });
+    }
+
+    console.log(filtered)
+
+    countyStatsText.selectAll('p').remove();
+    for (const [key,value] of Object.entries(filtered[county])) {
+        countyStatsText.append("p").text(`${key}: ${value}`)
+    }
 
     // update header
-    console.log("update header piece")
-    var countyStats = d3.select("stats-card")
-    countyStats.style.backgroundColor = countyColors(county);
+    var newHeader = `${county} County Statistics`
+    document.getElementById("card-title").innerText = newHeader;
+   
+    newColor = countyColors(county);
+    var statsCard = document.getElementById("stats-card");
+    statsCard.style.backgroundColor = newColor;
 };
 
 // create function to color counties
