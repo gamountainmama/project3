@@ -18,7 +18,7 @@ locationSelect.addEventListener('change',function() {
   var location = getCoord(locationSelect.value);
   if (location) {
     // center the map on the selected location
-    myMap.setView(location, 9)
+    myMap.setView(location, 10)
   }
 });
 

@@ -28,7 +28,7 @@
             <div class="text-center">
                 <h1>Interactive Atlanta Map</h1>
                 <h3>Mountain Pancakes</h3>
-                <h4>Frances Jay, John Kiersznowski, Sea Gun Lee, Carol Love</h4>
+                <h4>Frances Jay, John Kiersznowski, Carol Love</h4>
             </div>
         </div>
     </div>
@@ -45,11 +45,16 @@
                         <select class= "form-select" id="selCounty" onchange="optionChanged(this.value)"></select>
                     </div>
                 </div>
+<<<<<<< HEAD:templates/index.html
                 <div id="stats-card" float: left class="card" style="background-color: #344b3c; margin-top: 5px">
+=======
+                <div id="stats-card" class="card" style="background-color: #94aa9b; margin-top: 5px">
+>>>>>>> main:index.html
                     <div class="card-body" data-aos="fade-left">
                         <h3 id="card-title" class="card-title text-white" style="object-fit: cover;">County Statistics</h3>
                         <div id="county-statistics" class="card-text text-white"></div>
                     </div>
+<<<<<<< HEAD:templates/index.html
                 </div>
             </div>
         </div>
@@ -61,6 +66,19 @@
         <div class="container-fluid" style="float:left; max-width: 800px; position:relative;" data-aos="zoom-in">
             <div id="map"></div>
         </div>
+=======
+                  </div>
+            </div>
+            <!-- map in same line as county selection -->
+            <div class="col-md-8" data-aos="zoom-in">
+                <div id="map"></div>
+            </div>
+            <!-- bubble in same line as county statistics-->
+            <div class="col-md-12" data-aos="slide-right">
+                <div id="bubble"></div>
+            </div>
+        </div>
+>>>>>>> main:index.html
     </div>
 
     <!-- Leaflet JS -->
@@ -71,6 +89,15 @@
     <!-- D3 JavaScript -->
     <script src="https://d3js.org/d3.v5.min.js"></script>
 
+<<<<<<< HEAD:templates/index.html
+=======
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="./data.js"></script>
+    <script src="./map.js"></script>
+    <script src="./app.js"></script>
+    <script src="./bubble.js"></script>
+
+>>>>>>> main:index.html
     <!-- AOS JavaScript-->
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
